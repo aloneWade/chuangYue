@@ -1,9 +1,9 @@
-package com.cy.asset.personalCase.controller;
+package com.cy.asset.task.controller;
 
 import com.cy.asset.common.response.SuccessResponse;
 import com.cy.asset.common.util.ExcelUtil;
-import com.cy.asset.personalCase.bean.PingAnCase;
-import com.cy.asset.personalCase.service.CaseService;
+import com.cy.asset.task.bean.PingAnCase;
+import com.cy.asset.task.service.CaseService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;

@@ -1,11 +1,11 @@
-package com.cy.asset.personalCase.strategy;
+package com.cy.asset.task.strategy;
 
 import com.cy.asset.common.util.BeanContext;
 import com.cy.asset.common.util.BeanToMapUtil;
-import com.cy.asset.personalCase.bean.CaseBean;
-import com.cy.asset.personalCase.bean.CustomerBean;
-import com.cy.asset.personalCase.bean.PingAnCase;
-import com.cy.asset.personalCase.dao.CaseDao;
+import com.cy.asset.task.bean.CaseBean;
+import com.cy.asset.task.bean.CustomerBean;
+import com.cy.asset.task.bean.PingAnCase;
+import com.cy.asset.task.dao.CaseDao;
 import org.springframework.beans.BeanUtils;
 import org.springframework.transaction.annotation.Transactional;
 

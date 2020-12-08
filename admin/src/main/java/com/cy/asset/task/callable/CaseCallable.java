@@ -1,10 +1,8 @@
-package com.cy.asset.personalCase.callable;
+package com.cy.asset.task.callable;
 
-import com.cy.asset.personalCase.dao.CaseDao;
-import com.cy.asset.personalCase.strategy.CaseStrategy;
-import com.cy.asset.personalCase.strategy.GenerateCaseContext;
+import com.cy.asset.task.strategy.CaseStrategy;
+import com.cy.asset.task.strategy.GenerateCaseContext;
 
-import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Callable;

@@ -1,4 +1,4 @@
-package com.cy.asset.personalCase.strategy;
+package com.cy.asset.task.strategy;
 
 /**
  * @author wc

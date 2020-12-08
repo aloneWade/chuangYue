@@ -1,8 +1,8 @@
-package com.cy.asset.personalCase.dao;
+package com.cy.asset.task.dao;
 
-import com.cy.asset.personalCase.bean.CaseBean;
-import com.cy.asset.personalCase.bean.CustomerBean;
-import com.cy.asset.personalCase.bean.PingAnCase;
+import com.cy.asset.task.bean.CaseBean;
+import com.cy.asset.task.bean.CustomerBean;
+import com.cy.asset.task.bean.PingAnCase;
 import org.springframework.stereotype.Repository;
 
 /**

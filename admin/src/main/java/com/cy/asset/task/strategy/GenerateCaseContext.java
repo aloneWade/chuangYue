@@ -1,6 +1,4 @@
-package com.cy.asset.personalCase.strategy;
-
-import com.cy.asset.personalCase.bean.CaseEnum;
+package com.cy.asset.task.strategy;
 
 /**
  * @author wc

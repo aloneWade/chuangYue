@@ -1,4 +1,4 @@
-package com.cy.asset.personalCase.bean;
+package com.cy.asset.task.bean;
 
 import cn.afterturn.easypoi.excel.annotation.Excel;
 
