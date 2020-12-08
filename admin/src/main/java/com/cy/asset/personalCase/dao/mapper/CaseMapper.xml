@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cy.asset.personalCase.dao.CaseDao" >
+
+    <insert id="savePingAnCase" parameterType="com.cy.asset.personalCase.bean.PingAnCase" useGeneratedKeys="true" keyProperty="id">
+        <selectKey keyColumn="id" keyProperty="id" resultType="string" order="BEFORE">
+            select replace(uuid(), '-', '') as id from dual
+        </selectKey>
+        insert into cy_pingan_case (id_pingan_case,
+                                    customer_name,
+                                    customer_sex,
+                                    hand_other,
+                                    entrust_batch,
+                                    outsourcing_district,
+                                    b_l_k,
+                                    long_committee_number,
+                                    acode_date)
+        values (#{id},
+                #{customerName,jdbcType=VARCHAR},
+                #{customerSex,jdbcType=VARCHAR},
+                #{handOther,jdbcType=VARCHAR},
+                #{entrustBatch,jdbcType=VARCHAR},
+                #{outsourcingDistrict,jdbcType=VARCHAR},
+                #{BLK,jdbcType=VARCHAR},
+                #{longCommitteeNumber,jdbcType=VARCHAR},
+                #{acodeDate,jdbcType=VARCHAR})
+    </insert>
+
+</mapper>

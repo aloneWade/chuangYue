@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cy.asset.login.dao.LoginDao" >
+
+    <resultMap id="BaseResultMap" type="com.cy.asset.login.bean.User">
+        <id column="id_employee" property="id" jdbcType="VARCHAR"/>
+        <result column="eName" property="eName" jdbcType="VARCHAR"/>
+        <result column="empNo" property="empNo" jdbcType="VARCHAR"/>
+        <result column="sex" property="sex" jdbcType="VARCHAR"/>
+        <result column="phone_number" property="phoneNumber" jdbcType="VARCHAR"/>
+        <result column="position_no" property="positionNo" jdbcType="VARCHAR"/>
+        <result column="position_name" property="positionName" jdbcType="VARCHAR"/>
+        <result column="dept_no" property="deptNo" jdbcType="VARCHAR"/>
+        <result column="dept_name" property="deptName" jdbcType="VARCHAR"/>
+        <result column="extension_number" property="extensionNumber" jdbcType="VARCHAR"/>
+        <result column="small_phone_number" property="smallPhoneNumber" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <resultMap id="LoginUserMap" type="com.cy.asset.login.bean.Login">
+        <result column="username" property="username" jdbcType="VARCHAR"/>
+        <result column="password" property="password" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id_employee, eName, empNo, sex, phone_number, position_no,
+        position_name, dept_no, dept_name, extension_number, small_phone_number
+    </sql>
+
+    <select id="getLoginUser" resultMap="LoginUserMap" parameterType="java.lang.String">
+        select username, password
+        from cy_login_user
+        where username = #{username,jdbcType=VARCHAR}
+        and status = 1
+    </select>
+
+    <update id="changePassword" parameterType="com.cy.asset.login.bean.Login">
+        update cy_login_user
+        set password = #{afterPassword,jdbcType=VARCHAR}
+        where username = #{username,jdbcType=VARCHAR}
+        and status = 1
+    </update>
+
+    <select id="getEmployeeInfo" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"></include>
+        from cy_employee
+        where empNo = #{empNo,jdbcType=VARCHAR}
+        and position_status = 1
+    </select>
+
+</mapper>
