@@ -31,6 +31,11 @@ spring:
     testOnReturn: false
     poolPreparedStatements: true
     maxPoolPreparedStatementPerConnectionSize: 20
+  pagehelper:
+    helperDialect: mysql
+    reasonable: true
+    supportMethodsArguments: true
+    pageSizeZero: false #pageSize=0
 
 mybatis:
   config-location: classpath:mybatis-config.xml

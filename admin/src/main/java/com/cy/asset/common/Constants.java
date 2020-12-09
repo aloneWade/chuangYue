@@ -21,4 +21,8 @@ public class Constants {
     public static final Byte ONE_BYTE = new Byte("1");
     public static final Byte ZERO_BYTE = new Byte("0");
     public static final Byte NEGATIVE_ONE_BYTE = new Byte("-1");
+
+    /** String **/
+    public static final String ONE_STRING = "1";
+    public static final String TEN_STRING = "10";
 }

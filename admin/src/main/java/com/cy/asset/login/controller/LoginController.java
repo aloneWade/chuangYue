@@ -58,7 +58,7 @@ public class LoginController {
             HttpSession session = request.getSession();
             HashMap userMap = Maps.newHashMap();
             userMap.put("username",session.getAttribute("username").toString());
-            userMap.put("name",session.getAttribute("username").toString());
+            userMap.put("name",session.getAttribute("name").toString());
             return new SuccessResponse("user",userMap);
         }catch (NullPointerException e){
             return new SuccessResponse(401,"session is empty",e);

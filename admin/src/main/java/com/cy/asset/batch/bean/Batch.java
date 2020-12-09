@@ -1,5 +1,8 @@
 package com.cy.asset.batch.bean;
 
+import com.cy.asset.common.BaseDTO;
+import lombok.Data;
+
 import java.util.Date;
 
 /**
@@ -7,8 +10,11 @@ import java.util.Date;
  * @date 2020/12/8
  * @describe 批次信息
  */
-public class Batch {
+@Data
+public class Batch extends BaseDTO {
 
+    /** 批次主键 **/
+    private String id;
     /** 批次号 **/
     private String batchCode;
     /** 业务类型 **/
@@ -20,8 +26,10 @@ public class Batch {
     /** 委托日期 **/
     private Date entrustDate;
     /** 预计退案日期 **/
-    private Date expectCaseBackData;
+    private Date expectCaseBackDate;
     /** 备注 **/
     private String remark;
+    /** 导入状态 theImported、notImport **/
+    private String importStatus;
 
 }

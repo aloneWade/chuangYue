@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cy.asset.batch.dao.BatchDao" >
+
+    <resultMap id="BatchMap" type="com.cy.asset.batch.bean.Batch">
+        <result column="id_batch" property="id" jdbcType="VARCHAR"/>
+        <result column="batch_code" property="batchCode" jdbcType="VARCHAR"/>
+        <result column="business_type" property="businessType" jdbcType="VARCHAR"/>
+        <result column="client" property="client" jdbcType="VARCHAR"/>
+        <result column="product_name" property="productName" jdbcType="VARCHAR"/>
+        <result column="entrust_date" property="entrustDate" jdbcType="DATE"/>
+        <result column="expect_caseBack_date" property="expectCaseBackDate" jdbcType="DATE"/>
+        <result column="remark" property="remark" jdbcType="VARCHAR"/>
+        <result column="importStatus" property="import_status" jdbcType="VARCHAR"/>
+        <result column="created_by" property="createdBy" jdbcType="VARCHAR"/>
+        <result column="created_date" property="createdDate" jdbcType="TIMESTAMP"/>
+        <result column="updated_by" property="updatedBy" jdbcType="VARCHAR"/>
+        <result column="updated_date" property="updatedDate" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id_batch, batch_code, business_type, client, product_name, entrust_date,
+        expect_caseBack_date, remark, import_status, status, created_by, created_date,
+        updated_by, updated_date
+    </sql>
+
+    <insert id="addBatch" parameterType="com.cy.asset.batch.bean.Batch">
+        <selectKey keyColumn="id" keyProperty="id" resultType="string" order="BEFORE">
+            select replace(uuid(), '-', '') as id from dual
+        </selectKey>
+        insert into cy_case_batch(
+            <include refid="Base_Column_List"/>
+        ) values (
+            #{id,jdbcType=VARCHAR},
+            #{batchCode,jdbcType=VARCHAR},
+            #{businessType,jdbcType=VARCHAR},
+            #{client,jdbcType=VARCHAR},
+            #{productName,jdbcType=VARCHAR},
+            #{entrustDate,jdbcType=VARCHAR},
+            #{expectCaseBackDate,jdbcType=VARCHAR},
+            #{remark,jdbcType=VARCHAR},
+            'notImport',
+            1,
+            #{createdBy,jdbcType=VARCHAR},
+            now(),
+            #{createdBy,jdbcType=VARCHAR},
+            now()
+        )
+    </insert>
+
+    <update id="deleteBatch" parameterType="com.cy.asset.batch.bean.Batch">
+        update cy_case_batch
+        set status = 2,
+            updated_by = #{updatedBy,jdbcType=VARCHAR},
+            updated_date = now()
+        where id_batch = #{batchId,jdbcType=VARCHAR}
+    </update>
+
+    <select id="queryBatchList" parameterType="com.cy.asset.batch.bean.Batch" resultMap="BatchMap">
+        select
+        <include refid="Base_Column_List"></include>
+        from cy_case_batch
+        where status = 1
+        <if test="client!=null and client!=''">and client = #{client,jdbcType=VARCHAR}</if>
+        order by updated_date desc
+    </select>
+
+</mapper>
