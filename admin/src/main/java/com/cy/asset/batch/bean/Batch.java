@@ -2,7 +2,9 @@ package com.cy.asset.batch.bean;
 
 import com.cy.asset.common.BaseDTO;
 import lombok.Data;
+import org.web3j.abi.datatypes.Int;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -31,5 +33,9 @@ public class Batch extends BaseDTO {
     private String remark;
     /** 导入状态 theImported、notImport **/
     private String importStatus;
+    /** 户数 **/
+    private Integer totalCount;
+    /** 总金额 **/
+    private BigDecimal totalAmount;
 
 }

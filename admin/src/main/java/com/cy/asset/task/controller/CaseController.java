@@ -2,6 +2,8 @@ package com.cy.asset.task.controller;
 
 import com.cy.asset.common.response.SuccessResponse;
 import com.cy.asset.common.util.ExcelUtil;
+import com.cy.asset.task.bean.HangXiaoCase;
+import com.cy.asset.task.bean.MeiTuanCase;
 import com.cy.asset.task.bean.PingAnCase;
 import com.cy.asset.task.service.CaseService;
 import org.apache.commons.lang.StringUtils;
@@ -36,13 +38,47 @@ public class CaseController {
         return new SuccessResponse("导出模板成功");
     }
 
+    @RequestMapping(value = "/exportMeiTuanCaseTemplate",method = RequestMethod.POST)
+    public SuccessResponse exportMeiTuanCaseTemplate(HttpServletResponse response){
+        List<MeiTuanCase> personList = new ArrayList<>();
+        //导出操作
+        ExcelUtil.exportExcel(personList,"美团","美团", MeiTuanCase.class,"美团.xls",response);
+        return new SuccessResponse("导出模板成功");
+    }
+
+    @RequestMapping(value = "/exportHangXiaoCaseTemplate",method = RequestMethod.POST)
+    public SuccessResponse exportHangXiaoCaseTemplate(HttpServletResponse response){
+        List<HangXiaoCase> personList = new ArrayList<>();
+        //导出操作
+        ExcelUtil.exportExcel(personList,"杭消","杭消", HangXiaoCase.class,"杭消.xls",response);
+        return new SuccessResponse("导出模板成功");
+    }
+
     @RequestMapping(value = "/importPingAnCase",method = RequestMethod.POST)
     public SuccessResponse importPingAnCase(@RequestBody Map<String, Object> map){
         String filePath = (String)map.get("filePath");
         if(StringUtils.isEmpty(filePath)){
             return new SuccessResponse("文件路径为空");
         }
-        return caseService.importPingAnCase(filePath);
+        return caseService.importPingAnCase(map);
+    }
+
+    @RequestMapping(value = "/importMeiTuanCase",method = RequestMethod.POST)
+    public SuccessResponse importMeiTuanCase(@RequestBody Map<String, Object> map){
+        String filePath = (String)map.get("filePath");
+        if(StringUtils.isEmpty(filePath)){
+            return new SuccessResponse("文件路径为空");
+        }
+        return caseService.importMeiTuanCase(map);
+    }
+
+    @RequestMapping(value = "/importHangXiaoCase",method = RequestMethod.POST)
+    public SuccessResponse importHangXiaoCase(@RequestBody Map<String, Object> map){
+        String filePath = (String)map.get("filePath");
+        if(StringUtils.isEmpty(filePath)){
+            return new SuccessResponse("文件路径为空");
+        }
+        return caseService.importHangXiaoCase(map);
     }
 
 }

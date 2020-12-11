@@ -2,6 +2,114 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.cy.asset.task.dao.CaseDao" >
 
+    <insert id="saveCustomer" parameterType="java.util.List">
+        insert into cy_customer (
+            id_customer, customer_name, party_no, customer_sex, card_id,
+            phone_no, provinces, city, regional, zip_code, date_birth,
+            customer_age, residential_address, residential_tel,
+            company_address, company_tel,
+            created_by, created_date, updated_by, updated_date
+        ) values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+                (select replace(uuid(), '-', '') as id),
+                #{item.customerName,jdbcType=VARCHAR},#{item.partyNo,jdbcType=VARCHAR},
+                #{item.customerSex,jdbcType=VARCHAR},#{item.cardId,jdbcType=VARCHAR},
+                #{item.phoneNo,jdbcType=VARCHAR},#{item.provinces,jdbcType=VARCHAR},
+                #{item.city,jdbcType=VARCHAR},#{item.regional,jdbcType=VARCHAR},
+                #{item.zipCode,jdbcType=VARCHAR},#{item.birthDate,jdbcType=DATE},
+                #{item.customerAge,jdbcType=VARCHAR},#{item.residentialAddress,jdbcType=VARCHAR},
+                #{item.residentialTel,jdbcType=VARCHAR},#{item.companyAddress,jdbcType=VARCHAR},
+                #{item.companyTel,jdbcType=VARCHAR},
+                'system',now(),'system',now()
+            )
+        </foreach>
+    </insert>
+
+    <insert id="saveCase" parameterType="java.util.List">
+        insert into cy_case (
+            id_case, case_serial_number, collection_status, fixed_quota,
+            overdue_amount, overdue_days, late_stage, collection_phase,
+            remaining_principal, overdue_interest, late_charge, cancel_date,
+            statement_date, due_date, latest_payment_date, latest_payment_amount,
+            card_start_date, card_stop_date, collection_date, concordance_x_day,
+            concordance_30_day, concordance_60_day, case_identify_1,
+            case_identify_2,case_identify_3,remark, emp_no,
+            customer_id, batch_code, product_name, total_owed,
+            overdue_record, whether_installment, penal_sum, funding_party,
+            regulation_code, minimum_payment, appoint_case_amount,
+            created_by, created_date, updated_by, updated_date
+        ) values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+                (select replace(uuid(), '-', '') as id),
+                #{item.caseSerialNumber,jdbcType=VARCHAR},#{item.collectionStatus,jdbcType=VARCHAR},
+                #{item.fixedQuota,jdbcType=DECIMAL},#{item.overdueAmount,jdbcType=DECIMAL},
+                #{item.overdueDays,jdbcType=VARCHAR},#{item.lateStage,jdbcType=VARCHAR},
+                #{item.collectionPhase,jdbcType=VARCHAR},#{item.remainingPrincipal,jdbcType=DECIMAL},
+                #{item.overdueInterest,jdbcType=DECIMAL},#{item.lateCharge,jdbcType=DECIMAL},
+                #{item.cancelDate,jdbcType=DATE},#{item.statementDate,jdbcType=DATE},
+                #{item.dueDate,jdbcType=VARCHAR},#{item.latestPaymentDate,jdbcType=DATE},
+                #{item.latestPaymentAmount,jdbcType=DECIMAL},#{item.cardStartDate,jdbcType=DATE},
+                #{item.cardStopDate,jdbcType=DATE},#{item.collectionDate,jdbcType=DATE},
+                #{item.concordanceXDay,jdbcType=VARCHAR},#{item.concordance30Day,jdbcType=VARCHAR},
+                #{item.concordance60Day,jdbcType=VARCHAR},#{item.caseIdentify1,jdbcType=VARCHAR},
+                #{item.caseIdentify2,jdbcType=VARCHAR},#{item.caseIdentify3,jdbcType=VARCHAR},
+                #{item.remark,jdbcType=VARCHAR},#{item.empNo,jdbcType=VARCHAR},
+                #{item.customerId,jdbcType=VARCHAR},#{item.batchCode,jdbcType=VARCHAR},
+                #{item.productName,jdbcType=VARCHAR},#{item.totalOwed,jdbcType=DECIMAL},
+                #{item.overdueRecord,jdbcType=VARCHAR},#{item.whetherInstallment,jdbcType=VARCHAR},
+                #{item.penalSum,jdbcType=DECIMAL},#{item.fundingParty,jdbcType=VARCHAR},#{item.regulationCode,jdbcType=VARCHAR},
+                #{item.minimumPayment,jdbcType=DECIMAL},#{item.appointCaseAmount,jdbcType=DECIMAL},
+                'system',now(),'system',now()
+            )
+        </foreach>
+    </insert>
+
+    <insert id="saveMeiTuanCase" parameterType="java.util.List">
+        insert into cy_meituan_case (
+            id_meituan_case, collection_of, follow_up_people, follow_up_people_code,
+            divisional_date, cancel_date, caseIdentify_1, product, case_serial_number,
+            customer_name, card_id, phone_no, contact_name, contact_phone_no,
+            due_date, the_amount_overdue_IOU, number_overdue_IOU,
+            time_past_due_on_IOU, late_stage, overdue_days, overdue_amount,
+            within_time_limit_principal, overdue_interest, late_charge, late_dee,
+            settlement_advance, remaining_principal, in_the_rush_amount,
+            low_telephone_unverified, medium_telephone_unverified,
+            high1_telephone_unverified, low_address_unverified, medium_address_unverified,
+            high1_address_unverified, poi_stores_list, high2_telephone_unverified,
+            high2_address_unverified, urged_authorization, resident_provinces,
+            InterestFree_amount, caseIdentify_2, caseIdentify_3,
+            created_by,created_date, updated_by, updated_date
+        ) values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+                (select replace(uuid(), '-', '') as id),
+                #{item.collectionOf,jdbcType=VARCHAR},#{item.followUpPeople,jdbcType=VARCHAR},
+                #{item.followUpPeopleCode,jdbcType=VARCHAR},#{item.divisionalDate,jdbcType=DATE},
+                #{item.cancelDate,jdbcType=DATE},#{item.caseIdentify1,jdbcType=VARCHAR},
+                #{item.product,jdbcType=VARCHAR},#{item.caseSerialNumber,jdbcType=VARCHAR},
+                #{item.customerName,jdbcType=VARCHAR},#{item.cardId,jdbcType=VARCHAR},
+                #{item.phoneNo,jdbcType=VARCHAR},#{item.contactName,jdbcType=VARCHAR},
+                #{item.contactPhoneNo,jdbcType=VARCHAR},#{item.dueDate,jdbcType=VARCHAR},
+                #{item.theAmountOverdueIOU,jdbcType=DECIMAL},#{item.numberOverdueIOU,jdbcType=VARCHAR},
+                #{item.timePastDueOnIOU,jdbcType=TIMESTAMP},#{item.lateStage,jdbcType=VARCHAR},
+                #{item.overdueDays,jdbcType=VARCHAR},#{item.overdueAmount,jdbcType=DECIMAL},
+                #{item.withinTimeLimitPrincipal,jdbcType=DECIMAL},#{item.overdueInterest,jdbcType=DECIMAL},
+                #{item.lateCharge,jdbcType=DECIMAL},#{item.lateDee,jdbcType=DECIMAL},#{item.settlementAdvance,jdbcType=DECIMAL},
+                #{item.appointCaseAmount,jdbcType=DECIMAL},#{item.inTheRushAmount,jdbcType=DECIMAL},
+                #{item.lowTelephoneUnverified,jdbcType=VARCHAR},#{item.mediumTelephoneUnverified,jdbcType=VARCHAR},
+                #{item.high1TelephoneUnverified,jdbcType=VARCHAR},#{item.lowAddressUnverified,jdbcType=VARCHAR},
+                #{item.mediumAddressUnverified,jdbcType=VARCHAR},#{item.high1AddressUnverified,jdbcType=VARCHAR},
+                #{item.poiStoresList,jdbcType=VARCHAR},#{item.high2TelephoneUnverified,jdbcType=VARCHAR},
+                #{item.high2AddressUnverified,jdbcType=VARCHAR},#{item.urgedAuthorization,jdbcType=VARCHAR},
+                #{item.residentProvinces,jdbcType=VARCHAR},#{item.interestFreeAmount,jdbcType=DECIMAL},
+                #{item.caseIdentify2,jdbcType=VARCHAR},#{item.caseIdentify3,jdbcType=VARCHAR},
+                'system',now(),'system',now()
+            )
+        </foreach>
+    </insert>
+
     <insert id="savePingAnCase" parameterType="com.cy.asset.task.bean.PingAnCase" useGeneratedKeys="true" keyProperty="id">
         <selectKey keyColumn="id" keyProperty="id" resultType="string" order="BEFORE">
             select replace(uuid(), '-', '') as id from dual

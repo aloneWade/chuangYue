@@ -5,6 +5,7 @@ import com.cy.asset.common.util.BeanToMapUtil;
 import com.cy.asset.task.bean.CaseBean;
 import com.cy.asset.task.bean.CustomerBean;
 import com.cy.asset.task.bean.PingAnCase;
+import com.cy.asset.task.bean.ResultBean;
 import com.cy.asset.task.dao.CaseDao;
 import org.springframework.beans.BeanUtils;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,7 +23,8 @@ public class PingAnCaseStrategy implements CaseStrategy {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Integer generateCase(List<Map<String,Object>> caseMap) {
+    public ResultBean generateCase(List<Map<String,Object>> caseMap) {
+        ResultBean result = new ResultBean();
         // 成功案件数统计
         Integer succeedCount = 0;
         List<PingAnCase> pingAnCaseList = BeanToMapUtil.convertListMap2ListBean(caseMap, PingAnCase.class);
@@ -33,15 +35,15 @@ public class PingAnCaseStrategy implements CaseStrategy {
             BeanUtils.copyProperties(pingAnCase,customer);
             BeanUtils.copyProperties(pingAnCase,caseBean);
             // 生成客户信息
-            caseDao.saveCustomer(customer);
+            //caseDao.saveCustomer(customer);
             // 生成个案信息
-            caseDao.saveCase(caseBean);
+            //caseDao.saveCase(caseBean);
             // 平安案件信息
             caseDao.savePingAnCase(pingAnCase);
             // case成功数+1
             succeedCount++;
         }
-        return succeedCount;
+        return result;
     }
 
 }

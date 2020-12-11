@@ -1,5 +1,7 @@
 package com.cy.asset.task.callable;
 
+import com.cy.asset.task.bean.CaseEnum;
+import com.cy.asset.task.bean.ResultBean;
 import com.cy.asset.task.strategy.CaseStrategy;
 import com.cy.asset.task.strategy.GenerateCaseContext;
 
@@ -13,30 +15,30 @@ import java.util.concurrent.Callable;
  */
 public class CaseCallable implements Callable {
 
-    private Integer succeedCount = 0;
+    private ResultBean result = new ResultBean();
 
     private List<Map<String,Object>> caseMap;
 
-    private String caseType;
+    private CaseEnum caseEnum;
 
-    public CaseCallable(List<Map<String,Object>> caseMap, String caseType){
+    public CaseCallable(List<Map<String,Object>> caseMap, CaseEnum caseEnum){
         this.caseMap = caseMap;
-        this.caseType = caseType;
+        this.caseEnum = caseEnum;
     }
 
     @Override
-    public Integer call() {
+    public ResultBean call() {
         try {
             // 策略模式，不同case执行不同策略
             GenerateCaseContext caseContext = new GenerateCaseContext();
-            CaseStrategy strategy = caseContext.getCaseStrategy(caseType);
+            CaseStrategy strategy = caseContext.getCaseStrategy(caseEnum);
             // 上载成功数统计
-            succeedCount = strategy.generateCase(caseMap);
-            return succeedCount;
+            result = strategy.generateCase(caseMap);
+            return result;
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            return succeedCount;
+            return result;
         }
     }
 
