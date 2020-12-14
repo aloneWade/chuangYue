@@ -2,6 +2,7 @@ package com.cy.asset.task.controller;
 
 import com.cy.asset.common.response.SuccessResponse;
 import com.cy.asset.common.util.ExcelUtil;
+import com.cy.asset.task.bean.CaseImportDTO;
 import com.cy.asset.task.bean.HangXiaoCase;
 import com.cy.asset.task.bean.MeiTuanCase;
 import com.cy.asset.task.bean.PingAnCase;
@@ -55,30 +56,18 @@ public class CaseController {
     }
 
     @RequestMapping(value = "/importPingAnCase",method = RequestMethod.POST)
-    public SuccessResponse importPingAnCase(@RequestBody Map<String, Object> map){
-        String filePath = (String)map.get("filePath");
-        if(StringUtils.isEmpty(filePath)){
-            return new SuccessResponse("文件路径为空");
-        }
-        return caseService.importPingAnCase(map);
+    public SuccessResponse importPingAnCase(@RequestBody CaseImportDTO caseImport){
+        return caseService.importPingAnCase(caseImport);
     }
 
     @RequestMapping(value = "/importMeiTuanCase",method = RequestMethod.POST)
-    public SuccessResponse importMeiTuanCase(@RequestBody Map<String, Object> map){
-        String filePath = (String)map.get("filePath");
-        if(StringUtils.isEmpty(filePath)){
-            return new SuccessResponse("文件路径为空");
-        }
-        return caseService.importMeiTuanCase(map);
+    public SuccessResponse importMeiTuanCase(@RequestBody CaseImportDTO caseImport){
+        return caseService.importMeiTuanCase(caseImport);
     }
 
     @RequestMapping(value = "/importHangXiaoCase",method = RequestMethod.POST)
-    public SuccessResponse importHangXiaoCase(@RequestBody Map<String, Object> map){
-        String filePath = (String)map.get("filePath");
-        if(StringUtils.isEmpty(filePath)){
-            return new SuccessResponse("文件路径为空");
-        }
-        return caseService.importHangXiaoCase(map);
+    public SuccessResponse importHangXiaoCase(@RequestBody CaseImportDTO caseImport){
+        return caseService.importHangXiaoCase(caseImport);
     }
 
 }

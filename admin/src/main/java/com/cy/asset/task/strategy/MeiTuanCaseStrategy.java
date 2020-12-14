@@ -3,6 +3,7 @@ package com.cy.asset.task.strategy;
 import com.cy.asset.common.util.BeanContext;
 import com.cy.asset.common.util.BeanToMapUtil;
 import com.cy.asset.task.bean.CaseBean;
+import com.cy.asset.task.bean.CaseImportDTO;
 import com.cy.asset.task.bean.CustomerBean;
 import com.cy.asset.task.bean.MeiTuanCase;
 import com.cy.asset.task.bean.ResultBean;
@@ -25,7 +26,7 @@ public class MeiTuanCaseStrategy implements CaseStrategy {
     private CaseDao caseDao = BeanContext.getApplicationContext().getBean(CaseDao.class);;
 
     @Override
-    public ResultBean generateCase(List<Map<String,Object>> caseMap) {
+    public ResultBean generateCase(List<Map<String,Object>> caseMap, CaseImportDTO caseImport) {
         ResultBean result = new ResultBean();
         // 成功案件数统计
         AtomicReference<Integer> succeedCount = new AtomicReference<>(0);
@@ -38,6 +39,8 @@ public class MeiTuanCaseStrategy implements CaseStrategy {
         meiTuanCaseList.forEach((meiTuanCase)->{
             CustomerBean customer = new CustomerBean();
             CaseBean caseBean = new CaseBean();
+            caseBean.setBatchCode(caseImport.getBatchCode());
+            caseBean.setProductName(caseImport.getProductName());
             // 将平安案件信息拷贝到客户和个案的bean属性中
             BeanUtils.copyProperties(meiTuanCase,customer);
             BeanUtils.copyProperties(meiTuanCase,caseBean);
@@ -71,7 +74,7 @@ public class MeiTuanCaseStrategy implements CaseStrategy {
         if(CollectionUtils.isNotEmpty(meiTuanList)){
             caseDao.saveMeiTuanCase(meiTuanList);
         }
-        result.setTotalCount(meiTuanCaseList.size());
+        result.setTotalCount(caseMap.size());
         result.setSucceedCount(succeedCount.get());
         result.setTotalAmount(totalAmount.get());
         return result;

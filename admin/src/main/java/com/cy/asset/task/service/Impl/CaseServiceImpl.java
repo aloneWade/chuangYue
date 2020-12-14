@@ -1,9 +1,11 @@
 package com.cy.asset.task.service.Impl;
 
+import com.cy.asset.batch.dao.BatchDao;
 import com.cy.asset.common.response.SuccessResponse;
 import com.cy.asset.common.util.BeanToMapUtil;
 import com.cy.asset.common.util.ExcelUtil;
 import com.cy.asset.task.bean.CaseEnum;
+import com.cy.asset.task.bean.CaseImportDTO;
 import com.cy.asset.task.bean.HangXiaoCase;
 import com.cy.asset.task.bean.MeiTuanCase;
 import com.cy.asset.task.bean.PingAnCase;
@@ -13,6 +15,8 @@ import com.cy.asset.task.service.CaseService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.*;
@@ -27,32 +31,40 @@ public class CaseServiceImpl implements CaseService {
     //一个线程处理1000条数据
     private static final Integer COUNT = 1000;
 
+    @Resource
+    private BatchDao batchDao;
+
     @Override
-    public SuccessResponse importPingAnCase(Map<String, Object> map) {
-        List<PingAnCase> caseList = ExcelUtil.importExcel((String)map.get("filePath"),1,1,PingAnCase.class);
+    public SuccessResponse importPingAnCase(CaseImportDTO caseImport) {
+        List<PingAnCase> caseList = ExcelUtil.importExcel(caseImport.getFilePath(),1,1,PingAnCase.class);
         List<Map<String,Object>> caseMap = BeanToMapUtil.convertListBean2ListMap(caseList,PingAnCase.class);
-        return this.executorThreadUploadCase(caseMap, CaseEnum.PING_AN_LIST);
+        caseImport.setCaseEnum(CaseEnum.PING_AN_LIST);
+        return this.executorThreadUploadCase(caseMap, caseImport);
     }
 
     @Override
-    public SuccessResponse importMeiTuanCase(Map<String, Object> map) {
-        List<MeiTuanCase> caseList = ExcelUtil.importExcel((String)map.get("filePath"),1,1,MeiTuanCase.class);
+    public SuccessResponse importMeiTuanCase(CaseImportDTO caseImport) {
+        List<MeiTuanCase> caseList = ExcelUtil.importExcel(caseImport.getFilePath(),1,1,MeiTuanCase.class);
         List<Map<String,Object>> caseMap = BeanToMapUtil.convertListBean2ListMap(caseList,MeiTuanCase.class);
-        return this.executorThreadUploadCase(caseMap, CaseEnum.MEI_TUAN_LIST);
+        caseImport.setCaseEnum(CaseEnum.MEI_TUAN_LIST);
+        return this.executorThreadUploadCase(caseMap, caseImport);
     }
 
     @Override
-    public SuccessResponse importHangXiaoCase(Map<String, Object> map) {
-        List<HangXiaoCase> caseList = ExcelUtil.importExcel((String)map.get("filePath"),1,1,HangXiaoCase.class);
+    public SuccessResponse importHangXiaoCase(CaseImportDTO caseImport) {
+        List<HangXiaoCase> caseList = ExcelUtil.importExcel(caseImport.getFilePath(),1,1,HangXiaoCase.class);
         List<Map<String,Object>> caseMap = BeanToMapUtil.convertListBean2ListMap(caseList,HangXiaoCase.class);
-        return this.executorThreadUploadCase(caseMap, CaseEnum.HANG_XIAO_LIST);
+        caseImport.setCaseEnum(CaseEnum.HANG_XIAO_LIST);
+        return this.executorThreadUploadCase(caseMap, caseImport);
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public SuccessResponse executorThreadUploadCase(List<Map<String,Object>> caseMap,CaseEnum caseEnum) {
+    public SuccessResponse executorThreadUploadCase(List<Map<String,Object>> caseMap,CaseImportDTO caseImport) {
         ResultBean result = new ResultBean();
-        // 解析excel, titleRows (标题行数)和headerRows (表头行数)
-        // 也可以使用MultipartFile,使用 FileUtil.importExcel(MultipartFile file, Integer titleRows, Integer headerRows, Class<T> pojoClass)导入
+        result.setSucceedCount(0);
+        result.setTotalAmount(new BigDecimal(0.00));
+        result.setTotalCount(0);
+        result.setBatchCode(caseImport.getBatchCode());
         // 数据集合大小
         int listSize = caseMap.size();
         // 开启的线程数
@@ -74,18 +86,27 @@ public class CaseServiceImpl implements CaseService {
                 }
                 newCaseList = caseMap.subList(startIndex, endIndex);
                 // 线程类
-                CaseCallable caseCallable = new CaseCallable(newCaseList, caseEnum);
+                CaseCallable caseCallable = new CaseCallable(newCaseList, caseImport);
                 // 执行线程获取执行结果
                 Future future = es.submit(caseCallable);
+                // 统计个线程执行结果
+                ResultBean resultCall = (ResultBean)future.get();
+                result.setTotalCount(result.getTotalCount() + resultCall.getTotalCount());
+                result.setTotalAmount(result.getTotalAmount().add(resultCall.getTotalAmount()));
+                result.setSucceedCount(result.getSucceedCount() + resultCall.getSucceedCount());
             }
             // 执行完关闭线程池
             es.shutdown();
-        } catch (Exception e) {
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
             e.printStackTrace();
         } finally {
             // 执行完关闭线程池
             es.shutdown();
         }
+        // 更新批次信息，返回结果
+        batchDao.updateBatch(result);
         return new SuccessResponse(result);
     }
 

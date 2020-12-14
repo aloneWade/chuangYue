@@ -1,6 +1,7 @@
 package com.cy.asset.task.strategy;
 
 import com.cy.asset.common.util.BeanContext;
+import com.cy.asset.task.bean.CaseImportDTO;
 import com.cy.asset.task.bean.ResultBean;
 import com.cy.asset.task.dao.CaseDao;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,7 +19,7 @@ public class HangXiaoCaseStrategy implements CaseStrategy {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public ResultBean generateCase(List<Map<String,Object>> caseMap) {
+    public ResultBean generateCase(List<Map<String,Object>> caseMap, CaseImportDTO caseImport) {
         ResultBean result = new ResultBean();
         return result;
     }

@@ -2,6 +2,7 @@ package com.cy.asset.task.dao;
 
 import com.cy.asset.task.bean.CaseBean;
 import com.cy.asset.task.bean.CustomerBean;
+import com.cy.asset.task.bean.HangXiaoCase;
 import com.cy.asset.task.bean.MeiTuanCase;
 import com.cy.asset.task.bean.PingAnCase;
 import org.springframework.data.repository.query.Param;
@@ -35,5 +36,10 @@ public interface CaseDao {
      * 保存美团案件信息
      * **/
     void saveMeiTuanCase(List<MeiTuanCase> meiTuanList);
+
+    /**
+     * 保存杭消案件信息
+     * **/
+    void saveHangXiaoCase(List<HangXiaoCase> meiTuanList);
 
 }

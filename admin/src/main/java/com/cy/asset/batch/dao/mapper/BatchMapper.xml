@@ -65,4 +65,13 @@
         order by updated_date desc
     </select>
 
+    <update id="updateBatch" parameterType="com.cy.asset.task.bean.ResultBean">
+        update cy_case_batch set total_count = #{totalCount,jdbcType=VARCHAR},
+                                 success_count = #{succeedCount,jdbcType=VARCHAR},
+                                 total_amount = #{totalAmount,jdbcType=DECIMAL},
+                                 import_status = 'import',
+                                 updated_date = now()
+             where batch_code = #{batchCode,jdbcType=VARCHAR}
+    </update>
+
 </mapper>

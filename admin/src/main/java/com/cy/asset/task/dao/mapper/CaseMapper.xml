@@ -93,7 +93,7 @@
                 #{item.phoneNo,jdbcType=VARCHAR},#{item.contactName,jdbcType=VARCHAR},
                 #{item.contactPhoneNo,jdbcType=VARCHAR},#{item.dueDate,jdbcType=VARCHAR},
                 #{item.theAmountOverdueIOU,jdbcType=DECIMAL},#{item.numberOverdueIOU,jdbcType=VARCHAR},
-                #{item.timePastDueOnIOU,jdbcType=TIMESTAMP},#{item.lateStage,jdbcType=VARCHAR},
+                #{item.timePastDueOnIOU,jdbcType=DATE},#{item.lateStage,jdbcType=VARCHAR},
                 #{item.overdueDays,jdbcType=VARCHAR},#{item.overdueAmount,jdbcType=DECIMAL},
                 #{item.withinTimeLimitPrincipal,jdbcType=DECIMAL},#{item.overdueInterest,jdbcType=DECIMAL},
                 #{item.lateCharge,jdbcType=DECIMAL},#{item.lateDee,jdbcType=DECIMAL},#{item.settlementAdvance,jdbcType=DECIMAL},
@@ -110,28 +110,12 @@
         </foreach>
     </insert>
 
-    <insert id="savePingAnCase" parameterType="com.cy.asset.task.bean.PingAnCase" useGeneratedKeys="true" keyProperty="id">
-        <selectKey keyColumn="id" keyProperty="id" resultType="string" order="BEFORE">
-            select replace(uuid(), '-', '') as id from dual
-        </selectKey>
-        insert into cy_pingan_case (id_pingan_case,
-                                    customer_name,
-                                    customer_sex,
-                                    hand_other,
-                                    entrust_batch,
-                                    outsourcing_district,
-                                    b_l_k,
-                                    long_committee_number,
-                                    acode_date)
-        values (#{id},
-                #{customerName,jdbcType=VARCHAR},
-                #{customerSex,jdbcType=VARCHAR},
-                #{handOther,jdbcType=VARCHAR},
-                #{entrustBatch,jdbcType=VARCHAR},
-                #{outsourcingDistrict,jdbcType=VARCHAR},
-                #{BLK,jdbcType=VARCHAR},
-                #{longCommitteeNumber,jdbcType=VARCHAR},
-                #{acodeDate,jdbcType=VARCHAR})
+    <insert id="saveHangXiaoCase">
+
+    </insert>
+
+    <insert id="savePingAnCase" parameterType="com.cy.asset.task.bean.PingAnCase">
+
     </insert>
 
 </mapper>

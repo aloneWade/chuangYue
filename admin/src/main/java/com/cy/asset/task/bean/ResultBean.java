@@ -16,7 +16,9 @@ public class ResultBean {
     private Integer succeedCount;
     /** 总条数 **/
     private Integer totalCount;
-    /** 总条数 **/
+    /** 总金额 **/
     private BigDecimal totalAmount;
+    /** 批次code **/
+    private String batchCode;
 
 }

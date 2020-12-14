@@ -24,9 +24,9 @@ public class MeiTuanCase extends BaseDTO {
     private String followUpPeople;
     @Excel(name = "跟进人Code", orderNum = "2")
     private String followUpPeopleCode;
-    @Excel(name = "分案日期", orderNum = "3")
+    @Excel(name = "分案日期", orderNum = "3", importFormat = "yyyy-MM-dd")
     private Date divisionalDate;
-    @Excel(name = "到期日", orderNum = "4")
+    @Excel(name = "到期日", orderNum = "4", importFormat = "yyyy-MM-dd")
     private Date cancelDate;
     @Excel(name = "特殊标识", orderNum = "5")
     private String caseIdentify1;
@@ -50,7 +50,7 @@ public class MeiTuanCase extends BaseDTO {
     private BigDecimal theAmountOverdueIOU;
     @Excel(name = "逾期借据笔数", orderNum = "15")
     private String numberOverdueIOU;
-    @Excel(name = "逾期借据借款时间", orderNum = "16")
+    @Excel(name = "逾期借据借款时间", orderNum = "16", importFormat = "yyyy-MM-dd")
     private Date timePastDueOnIOU;
     @Excel(name = "逾期阶段", orderNum = "17")
     private String lateStage;

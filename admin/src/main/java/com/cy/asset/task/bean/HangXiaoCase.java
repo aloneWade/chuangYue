@@ -5,6 +5,7 @@ import com.cy.asset.common.BaseDTO;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * @author wc
@@ -26,9 +27,9 @@ public class HangXiaoCase extends BaseDTO {
     @Excel(name = "逾期时段", orderNum = "3")
     private String lateStage;
     @Excel(name = "委案日期", orderNum = "4")
-    private String committeeCaseDate;
+    private Date committeeCaseDate;
     @Excel(name = "退案日期", orderNum = "5")
-    private String cancelDate;
+    private Date cancelDate;
     @Excel(name = "借据号", orderNum = "6")
     private String caseSerialNumber;
     @Excel(name = "客户姓名", orderNum = "7")
@@ -94,38 +95,38 @@ public class HangXiaoCase extends BaseDTO {
     @Excel(name = "联系人1姓名", orderNum = "37")
     private String contactPerson1Name;
     @Excel(name = "联系人1电话", orderNum = "38")
-    private String contactPhone1Name;
+    private String contactPhone1;
     @Excel(name = "联系人2姓名", orderNum = "39")
     private String contactPerson2Name;
     @Excel(name = "联系人2电话", orderNum = "40")
-    private String contactPhone2Name;
+    private String contactPhone2;
     @Excel(name = "联系人3姓名", orderNum = "41")
     private String contactPerson3Name;
     @Excel(name = "联系人3电话", orderNum = "42")
-    private String contactPhone3Name;
+    private String contactPhone3;
     @Excel(name = "联系人4姓名", orderNum = "43")
     private String contactPerson4Name;
     @Excel(name = "联系人4电话", orderNum = "44")
-    private String contactPhone4Name;
+    private String contactPhone4;
     @Excel(name = "联系人5姓名", orderNum = "45")
     private String contactPerson5Name;
     @Excel(name = "联系人5电话", orderNum = "46")
-    private String contactPhone5Name;
+    private String contactPhone5;
     @Excel(name = "联系人6姓名", orderNum = "47")
     private String contactPerson6Name;
     @Excel(name = "联系人6电话", orderNum = "48")
-    private String contactPhone6Name;
+    private String contactPhone6;
     @Excel(name = "联系人7姓名", orderNum = "49")
     private String contactPerson7Name;
     @Excel(name = "联系人7电话", orderNum = "50")
-    private String contactPhone7Name;
+    private String contactPhone7;
     @Excel(name = "联系人8姓名", orderNum = "51")
     private String contactPerson8Name;
     @Excel(name = "联系人8电话", orderNum = "52")
-    private String contactPhone8Name;
+    private String contactPhone8;
     @Excel(name = "联系人9姓名", orderNum = "53")
     private String contactPerson9Name;
     @Excel(name = "联系人9电话", orderNum = "54")
-    private String contactPhone9Name;
+    private String contactPhone9;
 
 }

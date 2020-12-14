@@ -1,6 +1,7 @@
 package com.cy.asset.batch.dao;
 
 import com.cy.asset.batch.bean.Batch;
+import com.cy.asset.task.bean.ResultBean;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -21,9 +22,15 @@ public interface BatchDao {
      * 删除批次
      * **/
     void deleteBatch(Batch batch);
+
     /**
      * 查询批次信息
      * **/
     List<Batch> queryBatchList(Batch batch);
+
+    /**
+     * 更新批次信息
+     */
+    void updateBatch(ResultBean result);
 
 }
