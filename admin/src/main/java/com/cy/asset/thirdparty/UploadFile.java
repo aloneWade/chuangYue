@@ -24,6 +24,7 @@ public class UploadFile {
 
     @Autowired
     private S3UploadHelper s3UploadHelper;
+
     protected Logger logger = LoggerFactory.getLogger(UploadFile.class);
 
     @PostMapping("file")

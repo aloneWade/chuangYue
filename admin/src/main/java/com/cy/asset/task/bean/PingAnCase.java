@@ -3,8 +3,10 @@ package com.cy.asset.task.bean;
 import cn.afterturn.easypoi.excel.annotation.Excel;
 import com.cy.asset.common.BaseDTO;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * @author wc
@@ -28,11 +30,11 @@ public class PingAnCase extends BaseDTO {
     @Excel(name = "长委次数", orderNum = "4")
     private String longCommitteeNum;
     @Excel(name = "Acode日期", orderNum = "5")
-    private String acodeDate;
+    private Date acodeDate;
     @Excel(name = "挂A天数", orderNum = "6")
     private String hangADays;
     @Excel(name = "委外起始日期", orderNum = "7")
-    private String outsourcingStartDate;
+    private Date outsourcingStartDate;
     @Excel(name = "委外计划截止日期", orderNum = "8")
     private String deadlineOutsourcingProjects;
     @Excel(name = "客户号", orderNum = "9")
@@ -46,59 +48,59 @@ public class PingAnCase extends BaseDTO {
     @Excel(name = "首张激活卡号末四位", orderNum = "13")
     private String cardNum1EndFour;
     @Excel(name = "整合X DAY", orderNum = "14")
-    private String integrationXDay;
+    private BigDecimal integrationXDay;
     @Excel(name = "整合30 DAY", orderNum = "15")
-    private String integration30Day;
+    private BigDecimal integration30Day;
     @Excel(name = "整合60 DAY", orderNum = "16")
-    private String integration60Day;
+    private BigDecimal integration60Day;
     @Excel(name = "整合90 DAY", orderNum = "17")
-    private String integration90Day;
+    private BigDecimal integration90Day;
     @Excel(name = "整合120 DAY", orderNum = "18")
-    private String integration120Day;
+    private BigDecimal integration120Day;
     @Excel(name = "整合150 DAY", orderNum = "19")
-    private String integration150Day;
+    private BigDecimal integration150Day;
     @Excel(name = "整合180 DAY", orderNum = "20")
-    private String integration180Day;
+    private BigDecimal integration180Day;
     @Excel(name = "整合210 DAY", orderNum = "21")
-    private String integration210Day;
+    private BigDecimal integration210Day;
     @Excel(name = "账户余额本金", orderNum = "22")
-    private String accountBalancePrincipal;
+    private BigDecimal accountBalancePrincipal;
     @Excel(name = "委案金额AR", orderNum = "23")
     private BigDecimal appointCaseAmount;
     @Excel(name = "分期未入账金额", orderNum = "24")
-    private String instalmentUnrecordedAmount;
+    private BigDecimal instalmentUnrecordedAmount;
     @Excel(name = "人民币余额", orderNum = "25")
     private BigDecimal balanceRMB;
     @Excel(name = "人民币最低应缴款金额", orderNum = "26")
     private BigDecimal minimumRMBPayable;
     @Excel(name = "人民币当前CD值", orderNum = "27")
-    private String currentRMBCD;
+    private Integer currentRMBCD;
     @Excel(name = "美元余额", orderNum = "28")
-    private String balancesDollar;
+    private BigDecimal balancesDollar;
     @Excel(name = "美元最低应缴款金额", orderNum = "29")
-    private String minimumDollarPayable;
+    private BigDecimal minimumDollarPayable;
     @Excel(name = "美元当前CD值", orderNum = "30")
-    private String currentDollarCD;
+    private Integer currentDollarCD;
     @Excel(name = "人民币额度固定额度", orderNum = "31")
     private BigDecimal fixedQuota;
     @Excel(name = "账单日", orderNum = "32")
     private String statementDate;
     @Excel(name = "入催日", orderNum = "33")
-    private String inRushDate;
+    private Date inRushDate;
     @Excel(name = "开户日", orderNum = "34")
-    private String openAccountDate;
+    private Date openAccountDate;
     @Excel(name = "停卡日", orderNum = "35")
-    private String stopCardDate;
+    private Date stopCardDate;
     @Excel(name = "美元最后一次缴款日", orderNum = "36")
-    private String dollarLastPaymentDate;
+    private Date dollarLastPaymentDate;
     @Excel(name = "美元最后一次缴款金额", orderNum = "37")
-    private String dollarLastPaymentAmount ;
+    private BigDecimal dollarLastPaymentAmount ;
     @Excel(name = "美元还款日还款笔数", orderNum = "38")
     private String dollarPaymentDateFrequency ;
     @Excel(name = "人民币最后一次缴款日", orderNum = "39")
-    private String latestPaymentDate;
+    private Date latestPaymentDate;
     @Excel(name = "人民币last缴款金额", orderNum = "40")
-    private	 BigDecimal latestPaymentAmount	;
+    private	BigDecimal latestPaymentAmount	;
     @Excel(name = "人民币最后还款笔数", orderNum = "41")
     private String rmbPaymentDateFrequency;
     @Excel(name = "客户姓名", orderNum = "42")
@@ -126,13 +128,14 @@ public class PingAnCase extends BaseDTO {
     @Excel(name = "电邮", orderNum = "53")
     private String zipCode;
     @Excel(name = "职务", orderNum = "54")
-    private String position;
+    private String duties;
     @Excel(name = "逾期天数", orderNum = "55")
     private String overdueDays;
     @Excel(name = "城市", orderNum = "56")
     private String city;
     @Excel(name = "出生日期", orderNum = "57")
-    private String birthDate;
+    @DateTimeFormat(pattern = "yyyyMMdd")
+    private Date birthDate;
     @Excel(name = "帐单地址邮编", orderNum = "58")
     private String billingAddressZipCode;
     @Excel(name = "帐单地址", orderNum = "59")
@@ -268,25 +271,25 @@ public class PingAnCase extends BaseDTO {
     @Excel(name = "备注10", orderNum = "124")
     private String remark10;
     @Excel(name = "方案1还款额", orderNum = "125")
-    private String reimbursementOption1;
+    private BigDecimal reimbursementOption1;
     @Excel(name = "方案1减免额", orderNum = "126")
-    private String reductionOption1;
+    private BigDecimal reductionOption1;
     @Excel(name = "方案2还款额", orderNum = "127")
-    private String reimbursementOption2;
+    private BigDecimal reimbursementOption2;
     @Excel(name = "方案2减免额", orderNum = "128")
-    private String reductionOption2;
+    private BigDecimal reductionOption2;
     @Excel(name = "方案3还款额", orderNum = "129")
-    private String reimbursementOption3;
+    private BigDecimal reimbursementOption3;
     @Excel(name = "方案3减免额", orderNum = "130")
     private String reductionOption3;
     @Excel(name = "付款起始日", orderNum = "131")
-    private String paymentStartDate;
+    private Date paymentStartDate;
     @Excel(name = "是否免材料", orderNum = "132")
     private String whetherFreeMaterials;
     @Excel(name = "委托起始日", orderNum = "133")
-    private String commissioningStartDate;
+    private Date commissioningStartDate;
     @Excel(name = "委托截止日", orderNum = "134")
-    private String delegationDeadline;
+    private Date delegationDeadline;
     @Excel(name = "观测", orderNum = "135")
     private String observation;
     @Excel(name = "债务类型", orderNum = "136")
@@ -294,9 +297,9 @@ public class PingAnCase extends BaseDTO {
     @Excel(name = "最近24个月逾期情况", orderNum = "137")
     private String last24MonthsOverdue;
     @Excel(name = "人民币可用额度", orderNum = "138")
-    private String availableQuotRMB;
+    private BigDecimal availableQuotRMB;
     @Excel(name = "美元可用额度", orderNum = "139")
-    private String availableQuotDollar;
+    private BigDecimal availableQuotDollar;
     @Excel(name = "申请延期次数", orderNum = "140")
     private String extensionNumberApplications;
     @Excel(name = "特殊地区判定", orderNum = "141")

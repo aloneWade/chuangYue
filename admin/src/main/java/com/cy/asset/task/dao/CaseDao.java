@@ -1,11 +1,10 @@
 package com.cy.asset.task.dao;
 
 import com.cy.asset.task.bean.CaseBean;
-import com.cy.asset.task.bean.CustomerBean;
+import com.cy.asset.customer.bean.CustomerBean;
 import com.cy.asset.task.bean.HangXiaoCase;
 import com.cy.asset.task.bean.MeiTuanCase;
 import com.cy.asset.task.bean.PingAnCase;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -30,7 +29,7 @@ public interface CaseDao {
     /**
      * 保存平安案件信息
      * **/
-    void savePingAnCase(PingAnCase pingAnCase);
+    void savePingAnCase(List<PingAnCase> pingAnCase);
 
     /**
      * 保存美团案件信息

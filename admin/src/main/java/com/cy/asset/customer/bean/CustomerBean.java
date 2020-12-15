@@ -1,4 +1,4 @@
-package com.cy.asset.task.bean;
+package com.cy.asset.customer.bean;
 
 import com.cy.asset.common.BaseDTO;
 import lombok.Data;
@@ -45,6 +45,6 @@ public class CustomerBean extends BaseDTO {
     /** 出生日期 **/
     private Date birthDate;
     /** 年龄 **/
-    private String customerAge;
+    private Integer customerAge;
 
 }
