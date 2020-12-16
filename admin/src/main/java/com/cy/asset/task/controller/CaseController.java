@@ -9,6 +9,7 @@ import com.cy.asset.task.bean.PingAnCase;
 import com.cy.asset.task.service.CaseService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -55,16 +56,19 @@ public class CaseController {
         return new SuccessResponse("导出模板成功");
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @RequestMapping(value = "/importPingAnCase",method = RequestMethod.POST)
     public SuccessResponse importPingAnCase(@RequestBody CaseImportDTO caseImport){
         return caseService.importPingAnCase(caseImport);
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @RequestMapping(value = "/importMeiTuanCase",method = RequestMethod.POST)
     public SuccessResponse importMeiTuanCase(@RequestBody CaseImportDTO caseImport){
         return caseService.importMeiTuanCase(caseImport);
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @RequestMapping(value = "/importHangXiaoCase",method = RequestMethod.POST)
     public SuccessResponse importHangXiaoCase(@RequestBody CaseImportDTO caseImport){
         return caseService.importHangXiaoCase(caseImport);

@@ -25,9 +25,9 @@ public class MeiTuanCase extends BaseDTO {
     @Excel(name = "跟进人Code", orderNum = "2")
     private String followUpPeopleCode;
     @Excel(name = "分案日期", orderNum = "3", importFormat = "yyyy-MM-dd")
-    private Date divisionalDate;
+    private Date appointCaseDate;
     @Excel(name = "到期日", orderNum = "4", importFormat = "yyyy-MM-dd")
-    private Date cancelDate;
+    private Date expectBackCaseDate;
     @Excel(name = "特殊标识", orderNum = "5")
     private String caseIdentify1;
     @Excel(name = "产品", orderNum = "6")
@@ -45,7 +45,7 @@ public class MeiTuanCase extends BaseDTO {
     @Excel(name = "联系人手机号", orderNum = "12")
     private String contactPhoneNo;
     @Excel(name = "应还日", orderNum = "13")
-    private String dueDate;
+    private String statementDate;
     @Excel(name = "逾期借据借款金额", orderNum = "14")
     private BigDecimal theAmountOverdueIOU;
     @Excel(name = "逾期借据笔数", orderNum = "15")

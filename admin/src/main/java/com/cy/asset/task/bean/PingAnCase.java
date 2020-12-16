@@ -3,7 +3,6 @@ package com.cy.asset.task.bean;
 import cn.afterturn.easypoi.excel.annotation.Excel;
 import com.cy.asset.common.BaseDTO;
 import lombok.Data;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -29,16 +28,16 @@ public class PingAnCase extends BaseDTO {
     private String regulationCode;
     @Excel(name = "长委次数", orderNum = "4")
     private String longCommitteeNum;
-    @Excel(name = "Acode日期", orderNum = "5")
+    @Excel(name = "Acode日期", orderNum = "5", importFormat = "yyyyMMdd")
     private Date acodeDate;
     @Excel(name = "挂A天数", orderNum = "6")
     private String hangADays;
-    @Excel(name = "委外起始日期", orderNum = "7")
-    private Date outsourcingStartDate;
-    @Excel(name = "委外计划截止日期", orderNum = "8")
-    private String deadlineOutsourcingProjects;
+    @Excel(name = "委外起始日期", orderNum = "7", importFormat = "yyyyMMdd")
+    private Date appointCaseDate;
+    @Excel(name = "委外计划截止日期", orderNum = "8", importFormat = "yyyyMMdd")
+    private Date expectBackCaseDate;
     @Excel(name = "客户号", orderNum = "9")
-    private String customerNumber;
+    private String partyNo;
     @Excel(name = "真账号", orderNum = "10")
     private String caseSerialNumber;
     @Excel(name = "首张激活卡号", orderNum = "11")
@@ -85,19 +84,19 @@ public class PingAnCase extends BaseDTO {
     private BigDecimal fixedQuota;
     @Excel(name = "账单日", orderNum = "32")
     private String statementDate;
-    @Excel(name = "入催日", orderNum = "33")
+    @Excel(name = "入催日", orderNum = "33", importFormat = "yyyyMMdd")
     private Date inRushDate;
-    @Excel(name = "开户日", orderNum = "34")
+    @Excel(name = "开户日", orderNum = "34", importFormat = "yyyyMMdd")
     private Date openAccountDate;
-    @Excel(name = "停卡日", orderNum = "35")
+    @Excel(name = "停卡日", orderNum = "35", importFormat = "yyyyMMdd")
     private Date stopCardDate;
-    @Excel(name = "美元最后一次缴款日", orderNum = "36")
+    @Excel(name = "美元最后一次缴款日", orderNum = "36", importFormat = "yyyyMMdd")
     private Date dollarLastPaymentDate;
     @Excel(name = "美元最后一次缴款金额", orderNum = "37")
     private BigDecimal dollarLastPaymentAmount ;
     @Excel(name = "美元还款日还款笔数", orderNum = "38")
     private String dollarPaymentDateFrequency ;
-    @Excel(name = "人民币最后一次缴款日", orderNum = "39")
+    @Excel(name = "人民币最后一次缴款日", orderNum = "39", importFormat = "yyyyMMdd")
     private Date latestPaymentDate;
     @Excel(name = "人民币last缴款金额", orderNum = "40")
     private	BigDecimal latestPaymentAmount	;
@@ -122,19 +121,18 @@ public class PingAnCase extends BaseDTO {
     @Excel(name = "客户单位名称", orderNum = "50")
     private String nameClient;
     @Excel(name = "客户单位地址", orderNum = "51")
-    private String customerUnitAddress;
+    private String companyAddress;
     @Excel(name = "单位邮编", orderNum = "52")
     private String unitZipCode;
     @Excel(name = "电邮", orderNum = "53")
-    private String zipCode;
+    private String email;
     @Excel(name = "职务", orderNum = "54")
     private String duties;
     @Excel(name = "逾期天数", orderNum = "55")
     private String overdueDays;
     @Excel(name = "城市", orderNum = "56")
     private String city;
-    @Excel(name = "出生日期", orderNum = "57")
-    @DateTimeFormat(pattern = "yyyyMMdd")
+    @Excel(name = "出生日期", orderNum = "57", importFormat = "yyyyMMdd")
     private Date birthDate;
     @Excel(name = "帐单地址邮编", orderNum = "58")
     private String billingAddressZipCode;
@@ -282,13 +280,13 @@ public class PingAnCase extends BaseDTO {
     private BigDecimal reimbursementOption3;
     @Excel(name = "方案3减免额", orderNum = "130")
     private String reductionOption3;
-    @Excel(name = "付款起始日", orderNum = "131")
+    @Excel(name = "付款起始日", orderNum = "131", importFormat = "yyyyMMdd")
     private Date paymentStartDate;
     @Excel(name = "是否免材料", orderNum = "132")
     private String whetherFreeMaterials;
-    @Excel(name = "委托起始日", orderNum = "133")
+    @Excel(name = "委托起始日", orderNum = "133", importFormat = "yyyyMMdd")
     private Date commissioningStartDate;
-    @Excel(name = "委托截止日", orderNum = "134")
+    @Excel(name = "委托截止日", orderNum = "134", importFormat = "yyyyMMdd")
     private Date delegationDeadline;
     @Excel(name = "观测", orderNum = "135")
     private String observation;

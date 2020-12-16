@@ -49,6 +49,9 @@ public class MeiTuanCaseStrategy implements CaseStrategy {
             BeanUtils.copyProperties(meiTuanCase,caseBean);
             // 获取客户基本信息
             customerService.generateCustomerInfo(customer);
+            // 美团只有客户号 案件号和客户号统一
+            caseBean.setPartyNo(meiTuanCase.getCaseSerialNumber());
+            customer.setPartyNo(meiTuanCase.getCaseSerialNumber());
 
             customerList.add(customer);
             caseList.add(caseBean);

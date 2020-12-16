@@ -13,7 +13,6 @@ import com.cy.asset.task.bean.ResultBean;
 import com.cy.asset.task.callable.CaseCallable;
 import com.cy.asset.task.service.CaseService;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
@@ -58,7 +57,6 @@ public class CaseServiceImpl implements CaseService {
         return this.executorThreadUploadCase(caseMap, caseImport);
     }
 
-    @Transactional(rollbackFor = Exception.class)
     public SuccessResponse executorThreadUploadCase(List<Map<String,Object>> caseMap,CaseImportDTO caseImport) {
         ResultBean result = new ResultBean();
         result.setSucceedCount(0);
@@ -89,6 +87,7 @@ public class CaseServiceImpl implements CaseService {
                 CaseCallable caseCallable = new CaseCallable(newCaseList, caseImport);
                 // 执行线程获取执行结果
                 Future future = es.submit(caseCallable);
+                System.err.println("future-----"+future.get());
                 // 统计个线程执行结果
                 ResultBean resultCall = (ResultBean)future.get();
                 result.setTotalCount(result.getTotalCount() + resultCall.getTotalCount());

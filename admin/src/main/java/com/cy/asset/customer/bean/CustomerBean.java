@@ -16,10 +16,10 @@ public class CustomerBean extends BaseDTO {
     /** 主键 **/
     private String id;
 
+    /** 第三方客户号 **/
+    private String partyNo;
     /** 客户姓名 **/
     private String customerName;
-    /** 用户号 **/
-    private String partyNo;
     /** 客户性别 **/
     private String customerSex;
     /** 证件号码 **/
@@ -40,8 +40,8 @@ public class CustomerBean extends BaseDTO {
     private String city;
     /** 大区 **/
     private String regional;
-    /** 邮编 **/
-    private String zipCode;
+    /** 电邮 **/
+    private String email;
     /** 出生日期 **/
     private Date birthDate;
     /** 年龄 **/

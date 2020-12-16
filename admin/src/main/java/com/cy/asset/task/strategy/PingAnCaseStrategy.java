@@ -66,7 +66,7 @@ public class PingAnCaseStrategy implements CaseStrategy {
                 caseList.clear();
             }
             // 平安案件信息
-            if( caseList.size() == 200 ){
+            if( caseList.size() == 100 ){
                 caseDao.savePingAnCase(pingAnList);
                 pingAnList.clear();
             }
