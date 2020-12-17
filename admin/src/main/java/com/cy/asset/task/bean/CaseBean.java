@@ -45,5 +45,7 @@ public class CaseBean extends BaseDTO {
     private String statementDate;
     /** 手别 **/
     private String collectionPhase;
+    /** 案件来源 **/
+    private String caseSource;
 
 }

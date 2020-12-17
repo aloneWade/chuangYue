@@ -45,7 +45,7 @@ public class LoginServiceImpl implements LoginService {
         User employeeUser = loginMapperDao.getEmployeeInfo(loginRequest.getUsername());
         // 设置session
         httpSession.setAttribute("username", employeeUser.getEmpNo());
-        httpSession.setAttribute("name", employeeUser.getEName());
+        httpSession.setAttribute("user", employeeUser);
         // 登录成功返回Token
         userMap.put("Authorization", JWTUtil.sign(loginRequest.getUsername(),loginUser.getPassword()));
         return new SuccessResponse(userMap);

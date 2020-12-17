@@ -39,6 +39,6 @@ public interface CaseDao {
     /**
      * 保存杭消案件信息
      * **/
-    void saveHangXiaoCase(List<HangXiaoCase> meiTuanList);
+    void saveHangXiaoCase(List<HangXiaoCase> hangXiaoList);
 
 }

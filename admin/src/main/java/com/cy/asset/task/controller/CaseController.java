@@ -7,7 +7,6 @@ import com.cy.asset.task.bean.HangXiaoCase;
 import com.cy.asset.task.bean.MeiTuanCase;
 import com.cy.asset.task.bean.PingAnCase;
 import com.cy.asset.task.service.CaseService;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author wc

@@ -28,39 +28,18 @@
 
     <insert id="saveCase" parameterType="java.util.List">
         insert into cy_case (
-            id_case, case_serial_number, collection_status, fixed_quota,
-            overdue_amount, overdue_days, late_stage, collection_phase,
-            remaining_principal, overdue_interest, late_charge, cancel_date,
-            statement_date, due_date, latest_payment_date, latest_payment_amount,
-            card_start_date, card_stop_date, collection_date, concordance_x_day,
-            concordance_30_day, concordance_60_day, case_identify_1,
-            case_identify_2,case_identify_3,remark, emp_no,
-            party_no, batch_code, product_name, total_owed,
-            overdue_record, whether_installment, penal_sum, funding_party,
-            regulation_code, minimum_payment, appoint_case_amount,
-            created_by, created_date, updated_by, updated_date
+            id_case, case_serial_number, batch_code, appoint_case_date, expect_back_case_date,
+            party_no, overdue_days, appoint_case_amount, statement_date,
+            collection_phase, collect_status, created_by, created_date, updated_by, updated_date
         ) values
         <foreach collection="list" item="item" index="index" separator=",">
             (
                 (select replace(uuid(), '-', '') as id),
-                #{item.caseSerialNumber,jdbcType=VARCHAR},#{item.collectionStatus,jdbcType=VARCHAR},
-                #{item.fixedQuota,jdbcType=DECIMAL},#{item.overdueAmount,jdbcType=DECIMAL},
-                #{item.overdueDays,jdbcType=VARCHAR},#{item.lateStage,jdbcType=VARCHAR},
-                #{item.collectionPhase,jdbcType=VARCHAR},#{item.remainingPrincipal,jdbcType=DECIMAL},
-                #{item.overdueInterest,jdbcType=DECIMAL},#{item.lateCharge,jdbcType=DECIMAL},
-                #{item.cancelDate,jdbcType=DATE},#{item.statementDate,jdbcType=DATE},
-                #{item.statementDate,jdbcType=VARCHAR},#{item.latestPaymentDate,jdbcType=DATE},
-                #{item.latestPaymentAmount,jdbcType=DECIMAL},#{item.cardStartDate,jdbcType=DATE},
-                #{item.cardStopDate,jdbcType=DATE},#{item.collectionDate,jdbcType=DATE},
-                #{item.concordanceXDay,jdbcType=VARCHAR},#{item.concordance30Day,jdbcType=VARCHAR},
-                #{item.concordance60Day,jdbcType=VARCHAR},#{item.caseIdentify1,jdbcType=VARCHAR},
-                #{item.caseIdentify2,jdbcType=VARCHAR},#{item.caseIdentify3,jdbcType=VARCHAR},
-                #{item.remark,jdbcType=VARCHAR},#{item.empNo,jdbcType=VARCHAR},
-                #{item.partyNo,jdbcType=VARCHAR},#{item.batchCode,jdbcType=VARCHAR},
-                #{item.productName,jdbcType=VARCHAR},#{item.totalOwed,jdbcType=DECIMAL},
-                #{item.overdueRecord,jdbcType=VARCHAR},#{item.whetherInstallment,jdbcType=VARCHAR},
-                #{item.penalSum,jdbcType=DECIMAL},#{item.fundingParty,jdbcType=VARCHAR},#{item.regulationCode,jdbcType=VARCHAR},
-                #{item.minimumPayment,jdbcType=DECIMAL},#{item.appointCaseAmount,jdbcType=DECIMAL},
+                #{item.caseSerialNumber,jdbcType=VARCHAR},#{item.batchCode,jdbcType=VARCHAR},
+                #{item.appointCaseDate,jdbcType=DATE},#{item.expectBackCaseDate,jdbcType=DATE},
+                #{item.partyNo,jdbcType=VARCHAR},#{item.overdueDays,jdbcType=VARCHAR},
+                #{item.appointCaseAmount,jdbcType=DECIMAL},#{item.statementDate,jdbcType=VARCHAR},
+                #{item.collectionPhase,jdbcType=VARCHAR},#{item.collectStatus,jdbcType=VARCHAR}
                 'system',now(),'system',now()
             )
         </foreach>
@@ -133,19 +112,19 @@
         <foreach collection="list" item="item" index="index" separator=",">
             (
                 (select replace(uuid(), '-', '') as id),
-                #{item.channelType,jdbcType=VARCHAR},#{item.productNameAs,jdbcType=VARCHAR},#{item.assigned,jdbcType=VARCHAR},
-                #{item.lateStage,jdbcType=VARCHAR},#{item.committeeCaseDate,jdbcType=VARCHAR},#{item.cancelDate,jdbcType=VARCHAR},
-                #{item.caseSerialNumber,jdbcType=VARCHAR},#{item.customerName,jdbcType=VARCHAR},#{item.userNo,jdbcType=VARCHAR},
-                #{item.cardId,jdbcType=VARCHAR},#{item.loanBalance,jdbcType=VARCHAR},#{item.phoneNo,jdbcType=VARCHAR},
-                #{item.appointCaseAmount,jdbcType=VARCHAR},#{item.productName,jdbcType=VARCHAR},#{item.reimbursementBank,jdbcType=VARCHAR},
-                #{item.fixedQuota,jdbcType=VARCHAR},#{item.loanTimeLimit,jdbcType=VARCHAR},#{item.loanTime,jdbcType=VARCHAR},
+                #{item.channelType,jdbcType=VARCHAR},#{item.collectionPhase,jdbcType=VARCHAR},#{item.assigned,jdbcType=VARCHAR},
+                #{item.lateStage,jdbcType=VARCHAR},#{item.appointCaseDate,jdbcType=DATE},#{item.expectBackCaseDate,jdbcType=DATE},
+                #{item.caseSerialNumber,jdbcType=VARCHAR},#{item.customerName,jdbcType=VARCHAR},#{item.partyNo,jdbcType=VARCHAR},
+                #{item.cardId,jdbcType=VARCHAR},#{item.loanBalance,jdbcType=DECIMAL},#{item.phoneNo,jdbcType=VARCHAR},
+                #{item.appointCaseAmount,jdbcType=DECIMAL},#{item.productName,jdbcType=VARCHAR},#{item.reimbursementBank,jdbcType=VARCHAR},
+                #{item.fixedQuota,jdbcType=DECIMAL},#{item.loanTimeLimit,jdbcType=VARCHAR},#{item.loanTime,jdbcType=DATE},
                 #{item.overdueDays,jdbcType=VARCHAR},#{item.companyName,jdbcType=VARCHAR},#{item.companyTel,jdbcType=VARCHAR},
                 #{item.companyAddress,jdbcType=VARCHAR},#{item.residentialAddress,jdbcType=VARCHAR},#{item.relatives,jdbcType=VARCHAR},
-                #{item.relativesTel,jdbcType=VARCHAR},#{item.overdueAmount,jdbcType=VARCHAR},#{item.currentlyOwedAmount,jdbcType=VARCHAR},
-                #{item.currentlyDeductPrincipal,jdbcType=VARCHAR},#{item.contractNo,jdbcType=VARCHAR},#{item.addressIdCard,jdbcType=VARCHAR},
-                #{item.dueDate,jdbcType=VARCHAR},#{item.overdueInterest,jdbcType=VARCHAR},#{item.payableServiceFee,jdbcType=VARCHAR},
-                #{item.lateCharge,jdbcType=VARCHAR},#{item.monthlyPayments,jdbcType=VARCHAR},#{item.maximumOverdueDays,jdbcType=VARCHAR},
-                #{item.latestPaymentDate,jdbcType=VARCHAR},#{item.contactPerson1Name,jdbcType=VARCHAR},#{item.contactPhone1,jdbcType=VARCHAR},
+                #{item.relativesTel,jdbcType=VARCHAR},#{item.overdueAmount,jdbcType=DECIMAL},#{item.currentlyOwedAmount,jdbcType=DECIMAL},
+                #{item.currentlyDeductPrincipal,jdbcType=DECIMAL},#{item.contractNo,jdbcType=VARCHAR},#{item.addressIdCard,jdbcType=VARCHAR},
+                #{item.statementDate,jdbcType=VARCHAR},#{item.overdueInterest,jdbcType=DECIMAL},#{item.payableServiceFee,jdbcType=DECIMAL},
+                #{item.lateCharge,jdbcType=DECIMAL},#{item.monthlyPayments,jdbcType=DECIMAL},#{item.maximumOverdueDays,jdbcType=VARCHAR},
+                #{item.latestPaymentDate,jdbcType=DATE},#{item.contactPerson1Name,jdbcType=VARCHAR},#{item.contactPhone1,jdbcType=VARCHAR},
                 #{item.contactPerson2Name,jdbcType=VARCHAR},#{item.contactPhone2,jdbcType=VARCHAR},#{item.contactPerson3Name,jdbcType=VARCHAR},
                 #{item.contactPhone3,jdbcType=VARCHAR},#{item.contactPerson4Name,jdbcType=VARCHAR},#{item.contactPhone4,jdbcType=VARCHAR},
                 #{item.contactPerson5Name,jdbcType=VARCHAR},#{item.contactPhone5,jdbcType=VARCHAR},#{item.contactPerson6Name,jdbcType=VARCHAR},

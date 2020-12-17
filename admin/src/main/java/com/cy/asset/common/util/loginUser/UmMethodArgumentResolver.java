@@ -9,9 +9,8 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 /**
  * @author wc
  * @date 2020/12/9
- * @describe
  */
-public class CurrUserMethodArgumentResolver implements HandlerMethodArgumentResolver {
+public class UmMethodArgumentResolver implements HandlerMethodArgumentResolver {
 
     @Override
     public boolean supportsParameter(MethodParameter methodParameter) {
@@ -22,7 +21,7 @@ public class CurrUserMethodArgumentResolver implements HandlerMethodArgumentReso
     }
 
     @Override
-    public Object resolveArgument(MethodParameter methodParameter, ModelAndViewContainer modelAndViewContainer, NativeWebRequest nativeWebRequest, WebDataBinderFactory webDataBinderFactory) throws Exception {
+    public Object resolveArgument(MethodParameter methodParameter, ModelAndViewContainer modelAndViewContainer, NativeWebRequest nativeWebRequest, WebDataBinderFactory webDataBinderFactory) {
         Um currentUserAnnotation = methodParameter.getParameterAnnotation(Um.class);
         return nativeWebRequest.getAttribute(currentUserAnnotation.value(), NativeWebRequest.SCOPE_SESSION);
     }

@@ -25,6 +25,7 @@ import java.util.HashMap;
  * @date 2020-11-24
  */
 @RestController
+@RequestMapping("/cy")
 public class LoginController {
 
     @Autowired

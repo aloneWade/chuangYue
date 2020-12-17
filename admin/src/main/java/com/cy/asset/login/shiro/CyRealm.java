@@ -53,9 +53,10 @@ public class CyRealm extends AuthorizingRealm {
         String username = JWTUtil.getUsername(principals.toString());
         User user = loginDao.getEmployeeInfo(username);
         SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
-        simpleAuthorizationInfo.addRole(user.getRole());
-        Set<String> permission = new HashSet<>(user.getPermissionList());
-        simpleAuthorizationInfo.addStringPermissions(permission);
+        simpleAuthorizationInfo.addRole(user.getPositionNo());
+        //系统目前通过角色判断权限
+        //Set<String> permission = new HashSet<>(user.getPermissionList());
+        //simpleAuthorizationInfo.addStringPermissions(permission);
         return simpleAuthorizationInfo;
     }
 

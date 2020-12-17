@@ -4,8 +4,10 @@ import com.cy.asset.common.util.BeanContext;
 import com.cy.asset.common.util.BeanToMapUtil;
 import com.cy.asset.customer.service.Impl.CustomerServiceImpl;
 import com.cy.asset.task.bean.CaseBean;
+import com.cy.asset.task.bean.CaseEnum;
 import com.cy.asset.task.bean.CaseImportDTO;
 import com.cy.asset.customer.bean.CustomerBean;
+import com.cy.asset.task.bean.CollectStatusEnum;
 import com.cy.asset.task.bean.MeiTuanCase;
 import com.cy.asset.task.bean.ResultBean;
 import com.cy.asset.task.dao.CaseDao;
@@ -42,13 +44,14 @@ public class MeiTuanCaseStrategy implements CaseStrategy {
         meiTuanCaseList.forEach((meiTuanCase)->{
             CustomerBean customer = new CustomerBean();
             CaseBean caseBean = new CaseBean();
-            caseBean.setBatchCode(caseImport.getBatchCode());
-            caseBean.setProductName(caseImport.getProductName());
             // 将平安案件信息拷贝到客户和个案的bean属性中
             BeanUtils.copyProperties(meiTuanCase,customer);
             BeanUtils.copyProperties(meiTuanCase,caseBean);
             // 获取客户基本信息
             customerService.generateCustomerInfo(customer);
+            caseBean.setBatchCode(caseImport.getBatchCode());
+            caseBean.setCollectStatus(CollectStatusEnum.NEW_CASE.collectType());
+            caseBean.setCaseSource(CaseEnum.MEI_TUAN_LIST.caseType());
             // 美团只有客户号 案件号和客户号统一
             caseBean.setPartyNo(meiTuanCase.getCaseSerialNumber());
             customer.setPartyNo(meiTuanCase.getCaseSerialNumber());
@@ -67,7 +70,7 @@ public class MeiTuanCaseStrategy implements CaseStrategy {
                 caseList.clear();
             }
             // 平安案件信息
-            if( caseList.size() == 400 ){
+            if( caseList.size() == 500 ){
                 caseDao.saveMeiTuanCase(meiTuanList);
                 meiTuanList.clear();
             }

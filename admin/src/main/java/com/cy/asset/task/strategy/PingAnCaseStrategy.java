@@ -4,8 +4,10 @@ import com.cy.asset.common.util.BeanContext;
 import com.cy.asset.common.util.BeanToMapUtil;
 import com.cy.asset.customer.service.Impl.CustomerServiceImpl;
 import com.cy.asset.task.bean.CaseBean;
+import com.cy.asset.task.bean.CaseEnum;
 import com.cy.asset.task.bean.CaseImportDTO;
 import com.cy.asset.customer.bean.CustomerBean;
+import com.cy.asset.task.bean.CollectStatusEnum;
 import com.cy.asset.task.bean.MeiTuanCase;
 import com.cy.asset.task.bean.PingAnCase;
 import com.cy.asset.task.bean.ResultBean;
@@ -46,7 +48,8 @@ public class PingAnCaseStrategy implements CaseStrategy {
             CustomerBean customer = new CustomerBean();
             CaseBean caseBean = new CaseBean();
             caseBean.setBatchCode(caseImport.getBatchCode());
-            caseBean.setProductName(caseImport.getProductName());
+            caseBean.setCollectStatus(CollectStatusEnum.NEW_CASE.collectType());
+            caseBean.setCaseSource(CaseEnum.PING_AN_LIST.caseType());
             // 将平安案件信息拷贝到客户和个案的bean属性中
             BeanUtils.copyProperties(pingAnCase,customer);
             BeanUtils.copyProperties(pingAnCase,caseBean);
@@ -66,7 +69,7 @@ public class PingAnCaseStrategy implements CaseStrategy {
                 caseList.clear();
             }
             // 平安案件信息
-            if( caseList.size() == 100 ){
+            if( caseList.size() == 200 ){
                 caseDao.savePingAnCase(pingAnList);
                 pingAnList.clear();
             }

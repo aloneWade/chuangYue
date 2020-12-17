@@ -21,25 +21,26 @@ public class HangXiaoCase extends BaseDTO {
     @Excel(name = "渠道类型", orderNum = "0")
     private String channelType;
     @Excel(name = "产品简称", orderNum = "1")
-    private String productNameAs;
+    private String collectionPhase;
     @Excel(name = "分配机构", orderNum = "2")
     private String assigned;
     @Excel(name = "逾期时段", orderNum = "3")
     private String lateStage;
     @Excel(name = "委案日期", orderNum = "4")
-    private Date committeeCaseDate;
+    private Date appointCaseDate;
     @Excel(name = "退案日期", orderNum = "5")
-    private Date cancelDate;
+    private Date expectBackCaseDate;
     @Excel(name = "借据号", orderNum = "6")
     private String caseSerialNumber;
     @Excel(name = "客户姓名", orderNum = "7")
     private String customerName;
     @Excel(name = "用户号", orderNum = "8")
-    private String userNo;
+    private String partyNo;
+    /** 杭消的身份证信息是加密的 **/
     @Excel(name = "证件号码", orderNum = "9")
     private String cardId;
     @Excel(name = "贷款余额", orderNum = "10")
-    private String loanBalance;
+    private BigDecimal loanBalance;
     @Excel(name = "手机号", orderNum = "11")
     private String phoneNo;
     @Excel(name = "委案金额", orderNum = "12")
@@ -53,7 +54,7 @@ public class HangXiaoCase extends BaseDTO {
     @Excel(name = "放款期限", orderNum = "16")
     private String loanTimeLimit;
     @Excel(name = "放款时间", orderNum = "17")
-    private String loanTime;
+    private Date loanTime;
     @Excel(name = "逾期天数", orderNum = "18")
     private String overdueDays;
     @Excel(name = "公司名称", orderNum = "19")
@@ -79,7 +80,7 @@ public class HangXiaoCase extends BaseDTO {
     @Excel(name = "身份证地址", orderNum = "29")
     private String addressIdCard;
     @Excel(name = "应还款日", orderNum = "30")
-    private String dueDate;
+    private String statementDate;
     @Excel(name = "应还利息", orderNum = "31")
     private BigDecimal overdueInterest;
     @Excel(name = "应还手续费", orderNum = "32")
@@ -91,7 +92,7 @@ public class HangXiaoCase extends BaseDTO {
     @Excel(name = "最大逾期天数", orderNum = "35")
     private String maximumOverdueDays;
     @Excel(name = "最近还款日期", orderNum = "36")
-    private String latestPaymentDate;
+    private Date latestPaymentDate;
     @Excel(name = "联系人1姓名", orderNum = "37")
     private String contactPerson1Name;
     @Excel(name = "联系人1电话", orderNum = "38")
