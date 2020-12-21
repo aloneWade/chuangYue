@@ -5,7 +5,7 @@ import com.cy.asset.common.response.SuccessResponse;
 import com.cy.asset.common.util.BeanToMapUtil;
 import com.cy.asset.common.util.ExcelUtil;
 import com.cy.asset.task.bean.CaseEnum;
-import com.cy.asset.task.bean.CaseImportDTO;
+import com.cy.asset.task.bean.CaseImportBean;
 import com.cy.asset.task.bean.HangXiaoCase;
 import com.cy.asset.task.bean.MeiTuanCase;
 import com.cy.asset.task.bean.PingAnCase;
@@ -34,30 +34,30 @@ public class CaseServiceImpl implements CaseService {
     private BatchDao batchDao;
 
     @Override
-    public SuccessResponse importPingAnCase(CaseImportDTO caseImport) {
-        List<PingAnCase> caseList = ExcelUtil.importExcel(caseImport.getFilePath(),1,1,PingAnCase.class);
+    public SuccessResponse importPingAnCase(CaseImportBean caseImport) {
+        List<PingAnCase> caseList = ExcelUtil.importExcel(caseImport.getFilePath(),0,1,PingAnCase.class);
         List<Map<String,Object>> caseMap = BeanToMapUtil.convertListBean2ListMap(caseList,PingAnCase.class);
         caseImport.setCaseEnum(CaseEnum.PING_AN_LIST);
         return this.executorThreadUploadCase(caseMap, caseImport);
     }
 
     @Override
-    public SuccessResponse importMeiTuanCase(CaseImportDTO caseImport) {
-        List<MeiTuanCase> caseList = ExcelUtil.importExcel(caseImport.getFilePath(),1,1,MeiTuanCase.class);
+    public SuccessResponse importMeiTuanCase(CaseImportBean caseImport) {
+        List<MeiTuanCase> caseList = ExcelUtil.importExcel(caseImport.getFilePath(),0,1,MeiTuanCase.class);
         List<Map<String,Object>> caseMap = BeanToMapUtil.convertListBean2ListMap(caseList,MeiTuanCase.class);
         caseImport.setCaseEnum(CaseEnum.MEI_TUAN_LIST);
         return this.executorThreadUploadCase(caseMap, caseImport);
     }
 
     @Override
-    public SuccessResponse importHangXiaoCase(CaseImportDTO caseImport) {
-        List<HangXiaoCase> caseList = ExcelUtil.importExcel(caseImport.getFilePath(),1,1,HangXiaoCase.class);
+    public SuccessResponse importHangXiaoCase(CaseImportBean caseImport) {
+        List<HangXiaoCase> caseList = ExcelUtil.importExcel(caseImport.getFilePath(),0,1,HangXiaoCase.class);
         List<Map<String,Object>> caseMap = BeanToMapUtil.convertListBean2ListMap(caseList,HangXiaoCase.class);
         caseImport.setCaseEnum(CaseEnum.HANG_XIAO_LIST);
         return this.executorThreadUploadCase(caseMap, caseImport);
     }
 
-    public SuccessResponse executorThreadUploadCase(List<Map<String,Object>> caseMap,CaseImportDTO caseImport) {
+    public SuccessResponse executorThreadUploadCase(List<Map<String,Object>> caseMap, CaseImportBean caseImport) {
         ResultBean result = new ResultBean();
         result.setSucceedCount(0);
         result.setTotalAmount(new BigDecimal(0.00));
@@ -87,7 +87,6 @@ public class CaseServiceImpl implements CaseService {
                 CaseCallable caseCallable = new CaseCallable(newCaseList, caseImport);
                 // 执行线程获取执行结果
                 Future future = es.submit(caseCallable);
-                System.err.println("future-----"+future.get());
                 // 统计个线程执行结果
                 ResultBean resultCall = (ResultBean)future.get();
                 result.setTotalCount(result.getTotalCount() + resultCall.getTotalCount());

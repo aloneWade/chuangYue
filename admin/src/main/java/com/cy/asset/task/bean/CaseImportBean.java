@@ -9,7 +9,7 @@ import org.hibernate.validator.constraints.NotBlank;
  * @describe 导入案件参数
  */
 @Data
-public class CaseImportDTO {
+public class CaseImportBean {
 
     /** 文件路径 **/
     @NotBlank(message = "文件路径不能为空")

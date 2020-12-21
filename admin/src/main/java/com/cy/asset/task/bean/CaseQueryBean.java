@@ -8,7 +8,7 @@ import lombok.Data;
  * @describe 案件信息查询DTO
  */
 @Data
-public class CaseQueryDTO {
+public class CaseQueryBean {
 
     /** 客户姓名 **/
     private String customerName;
@@ -36,5 +36,11 @@ public class CaseQueryDTO {
     private String colorStatus;
     /** 案件状态 **/
     private String caseStatus;
+    /** 工号 **/
+    private String empNo;
+    /** 职位编码 **/
+    private String positionNo;
+    /** 部门 **/
+    private String deptNo;
 
 }

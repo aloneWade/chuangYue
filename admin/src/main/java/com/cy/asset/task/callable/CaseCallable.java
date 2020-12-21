@@ -1,7 +1,6 @@
 package com.cy.asset.task.callable;
 
-import com.cy.asset.task.bean.CaseEnum;
-import com.cy.asset.task.bean.CaseImportDTO;
+import com.cy.asset.task.bean.CaseImportBean;
 import com.cy.asset.task.bean.ResultBean;
 import com.cy.asset.task.strategy.CaseStrategy;
 import com.cy.asset.task.strategy.GenerateCaseContext;
@@ -20,9 +19,9 @@ public class CaseCallable implements Callable {
 
     private List<Map<String,Object>> caseMap;
 
-    private CaseImportDTO caseImport;
+    private CaseImportBean caseImport;
 
-    public CaseCallable(List<Map<String,Object>> caseMap, CaseImportDTO caseImport){
+    public CaseCallable(List<Map<String,Object>> caseMap, CaseImportBean caseImport){
         this.caseMap = caseMap;
         this.caseImport = caseImport;
     }

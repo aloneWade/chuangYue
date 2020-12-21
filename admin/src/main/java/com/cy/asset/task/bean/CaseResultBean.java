@@ -1,6 +1,5 @@
 package com.cy.asset.task.bean;
 
-import com.cy.asset.common.BaseDTO;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -8,14 +7,11 @@ import java.util.Date;
 
 /**
  * @author wc
- * @date 2020/12/4
- * @describe 案件信息
+ * @date 2020/12/18
+ * @describe 案件队列结果DTO
  */
 @Data
-public class CaseBean extends BaseDTO {
-
-    /** 主键 **/
-    private String id;
+public class CaseResultBean {
 
     /** 批次号 **/
     private String batchCode;
@@ -23,31 +19,35 @@ public class CaseBean extends BaseDTO {
     private Date appointCaseDate;
     /** 预计退案日期 **/
     private Date expectBackCaseDate;
-    /** 个案序列号 **/
+    /** 案件号 **/
     private String caseSerialNumber;
     /** 客户号 **/
     private String partyNo;
+    /** 项目 **/
+    private String client;
+    /** 产品 **/
+    private String productName;
+    /** 客户姓名 **/
+    private String customerName;
+    /** 地区 **/
+    private String provinces;
     /** 逾期天数 **/
     private String overdueDays;
     /** 委案金额 **/
     private BigDecimal appointCaseAmount;
-    /** 更新后金额 **/
+    /** 在催金额 **/
     private BigDecimal afterUpdateAmount;
-    /** 当前30天 **/
-    private BigDecimal current30Day;
-    /** 跟进人工号 **/
+    /** 跟进人 **/
     private String currentHandler;
+    /** 最近跟进时间 **/
+    private String lateFollowUpDate;
+    /** 催收结果 **/
+    private String collectResult;
     /** 催收状态 **/
     private String collectStatus;
-    /** 标色状态 **/
-    private String colorStatus;
-    /** 案件状态 **/
-    private String caseStatus;
-    /** 账单日 **/
-    private String statementDate;
-    /** 手别 **/
-    private String collectionPhase;
-    /** 案件来源 **/
-    private String caseSource;
+    /** 催记内容 **/
+    private String recordContent;
+    /** 已跟进次数 **/
+    private Integer followUpNum;
 
 }

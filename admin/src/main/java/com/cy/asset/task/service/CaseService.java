@@ -1,9 +1,7 @@
 package com.cy.asset.task.service;
 
 import com.cy.asset.common.response.SuccessResponse;
-import com.cy.asset.task.bean.CaseImportDTO;
-
-import java.util.Map;
+import com.cy.asset.task.bean.CaseImportBean;
 
 /**
  * @author wc
@@ -16,20 +14,20 @@ public interface CaseService {
      * @param caseImport
      * @return SuccessResponse
      */
-    SuccessResponse importPingAnCase(CaseImportDTO caseImport);
+    SuccessResponse importPingAnCase(CaseImportBean caseImport);
 
     /**
      * 美团
      * @param caseImport
      * @return SuccessResponse
      */
-    SuccessResponse importMeiTuanCase(CaseImportDTO caseImport);
+    SuccessResponse importMeiTuanCase(CaseImportBean caseImport);
 
     /**
      * 杭消
      * @param caseImport
      * @return SuccessResponse
      */
-    SuccessResponse importHangXiaoCase(CaseImportDTO caseImport);
+    SuccessResponse importHangXiaoCase(CaseImportBean caseImport);
 
 }

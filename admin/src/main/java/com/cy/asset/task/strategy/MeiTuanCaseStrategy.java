@@ -2,10 +2,11 @@ package com.cy.asset.task.strategy;
 
 import com.cy.asset.common.util.BeanContext;
 import com.cy.asset.common.util.BeanToMapUtil;
+import com.cy.asset.customer.dao.CustomerDao;
 import com.cy.asset.customer.service.Impl.CustomerServiceImpl;
 import com.cy.asset.task.bean.CaseBean;
 import com.cy.asset.task.bean.CaseEnum;
-import com.cy.asset.task.bean.CaseImportDTO;
+import com.cy.asset.task.bean.CaseImportBean;
 import com.cy.asset.customer.bean.CustomerBean;
 import com.cy.asset.task.bean.CollectStatusEnum;
 import com.cy.asset.task.bean.MeiTuanCase;
@@ -27,11 +28,12 @@ import java.util.concurrent.atomic.AtomicReference;
 public class MeiTuanCaseStrategy implements CaseStrategy {
 
     private CaseDao caseDao = BeanContext.getApplicationContext().getBean(CaseDao.class);
+    private CustomerDao customerDao = BeanContext.getApplicationContext().getBean(CustomerDao.class);
 
     private CustomerServiceImpl customerService = BeanContext.getApplicationContext().getBean(CustomerServiceImpl.class);
 
     @Override
-    public ResultBean generateCase(List<Map<String,Object>> caseMap, CaseImportDTO caseImport) {
+    public ResultBean generateCase(List<Map<String,Object>> caseMap, CaseImportBean caseImport) {
         ResultBean result = new ResultBean();
         // 成功案件数统计
         AtomicReference<Integer> succeedCount = new AtomicReference<>(0);
@@ -51,7 +53,7 @@ public class MeiTuanCaseStrategy implements CaseStrategy {
             customerService.generateCustomerInfo(customer);
             caseBean.setBatchCode(caseImport.getBatchCode());
             caseBean.setCollectStatus(CollectStatusEnum.NEW_CASE.collectType());
-            caseBean.setCaseSource(CaseEnum.MEI_TUAN_LIST.caseType());
+            caseBean.setCaseSource(CaseEnum.MEI_TUAN.caseType());
             // 美团只有客户号 案件号和客户号统一
             caseBean.setPartyNo(meiTuanCase.getCaseSerialNumber());
             customer.setPartyNo(meiTuanCase.getCaseSerialNumber());
@@ -61,7 +63,7 @@ public class MeiTuanCaseStrategy implements CaseStrategy {
             meiTuanList.add(meiTuanCase);
             // 生成客户信息
             if( customerList.size() == 500 ){
-                caseDao.saveCustomer(customerList);
+                customerDao.saveCustomer(customerList);
                 customerList.clear();
             }
             // 生成个案信息
@@ -78,7 +80,7 @@ public class MeiTuanCaseStrategy implements CaseStrategy {
             succeedCount.getAndSet(succeedCount.get() + 1);
         });
         if(CollectionUtils.isNotEmpty(customerList)){
-            caseDao.saveCustomer(customerList);
+            customerDao.saveCustomer(customerList);
         }
         if(CollectionUtils.isNotEmpty(caseList)){
             caseDao.saveCase(caseList);

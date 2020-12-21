@@ -3,9 +3,10 @@ package com.cy.asset.task.strategy;
 import com.cy.asset.common.util.BeanContext;
 import com.cy.asset.common.util.BeanToMapUtil;
 import com.cy.asset.customer.bean.CustomerBean;
+import com.cy.asset.customer.dao.CustomerDao;
 import com.cy.asset.task.bean.CaseBean;
 import com.cy.asset.task.bean.CaseEnum;
-import com.cy.asset.task.bean.CaseImportDTO;
+import com.cy.asset.task.bean.CaseImportBean;
 import com.cy.asset.task.bean.CollectStatusEnum;
 import com.cy.asset.task.bean.HangXiaoCase;
 import com.cy.asset.task.bean.ResultBean;
@@ -26,11 +27,12 @@ import java.util.concurrent.atomic.AtomicReference;
  */
 public class HangXiaoCaseStrategy implements CaseStrategy {
 
-    private CaseDao caseDao = BeanContext.getApplicationContext().getBean(CaseDao.class);;
+    private CaseDao caseDao = BeanContext.getApplicationContext().getBean(CaseDao.class);
+    private CustomerDao customerDao = BeanContext.getApplicationContext().getBean(CustomerDao.class);
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public ResultBean generateCase(List<Map<String,Object>> caseMap, CaseImportDTO caseImport) {
+    public ResultBean generateCase(List<Map<String,Object>> caseMap, CaseImportBean caseImport) {
         ResultBean result = new ResultBean();
         // 成功案件数统计
         AtomicReference<Integer> succeedCount = new AtomicReference<>(0);
@@ -48,7 +50,7 @@ public class HangXiaoCaseStrategy implements CaseStrategy {
             BeanUtils.copyProperties(hangXiaoCase,caseBean);
             caseBean.setBatchCode(caseImport.getBatchCode());
             caseBean.setCollectStatus(CollectStatusEnum.NEW_CASE.collectType());
-            caseBean.setCaseSource(CaseEnum.HANG_XIAO_LIST.caseType());
+            caseBean.setCaseSource(CaseEnum.HANG_XIAO.caseType());
 
             customerList.add(customer);
             caseList.add(caseBean);
@@ -56,7 +58,7 @@ public class HangXiaoCaseStrategy implements CaseStrategy {
 
             // 生成客户信息
             if( customerList.size() == 500 ){
-                caseDao.saveCustomer(customerList);
+                customerDao.saveCustomer(customerList);
                 customerList.clear();
             }
             // 生成个案信息
@@ -73,7 +75,7 @@ public class HangXiaoCaseStrategy implements CaseStrategy {
             succeedCount.getAndSet(succeedCount.get() + 1);
         });
         if(CollectionUtils.isNotEmpty(customerList)){
-            caseDao.saveCustomer(customerList);
+            customerDao.saveCustomer(customerList);
         }
         if(CollectionUtils.isNotEmpty(caseList)){
             caseDao.saveCase(caseList);

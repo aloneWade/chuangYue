@@ -53,6 +53,6 @@ public class User implements Serializable {
     // private String role;
 
     /** 权限信息 **/
-    private List<String> permissionList;
+    // private List<String> permissionList;
 
 }

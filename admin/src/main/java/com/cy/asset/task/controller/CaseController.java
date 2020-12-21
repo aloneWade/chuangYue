@@ -2,7 +2,7 @@ package com.cy.asset.task.controller;
 
 import com.cy.asset.common.response.SuccessResponse;
 import com.cy.asset.common.util.ExcelUtil;
-import com.cy.asset.task.bean.CaseImportDTO;
+import com.cy.asset.task.bean.CaseImportBean;
 import com.cy.asset.task.bean.HangXiaoCase;
 import com.cy.asset.task.bean.MeiTuanCase;
 import com.cy.asset.task.bean.PingAnCase;
@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +35,7 @@ public class CaseController {
     public SuccessResponse exportPingAnCaseTemplate(HttpServletResponse response){
         List<PingAnCase> personList = new ArrayList<>();
         //导出操作
-        ExcelUtil.exportExcel(personList,"平安","平安", PingAnCase.class,"平安.xls",response);
+        ExcelUtil.exportExcel(personList, null,"平安", PingAnCase.class,"平安.xls",response);
         return new SuccessResponse("导出模板成功");
     }
 
@@ -42,7 +43,7 @@ public class CaseController {
     public SuccessResponse exportMeiTuanCaseTemplate(HttpServletResponse response){
         List<MeiTuanCase> personList = new ArrayList<>();
         //导出操作
-        ExcelUtil.exportExcel(personList,"美团","美团", MeiTuanCase.class,"美团.xls",response);
+        ExcelUtil.exportExcel(personList,null,"美团", MeiTuanCase.class,"美团.xls",response);
         return new SuccessResponse("导出模板成功");
     }
 
@@ -50,25 +51,25 @@ public class CaseController {
     public SuccessResponse exportHangXiaoCaseTemplate(HttpServletResponse response){
         List<HangXiaoCase> personList = new ArrayList<>();
         //导出操作
-        ExcelUtil.exportExcel(personList,"杭消","杭消", HangXiaoCase.class,"杭消.xls",response);
+        ExcelUtil.exportExcel(personList,null,"杭消", HangXiaoCase.class,"杭消.xls",response);
         return new SuccessResponse("导出模板成功");
     }
 
     @Transactional(rollbackFor = Exception.class)
     @RequestMapping(value = "/importPingAnCase",method = RequestMethod.POST)
-    public SuccessResponse importPingAnCase(@RequestBody CaseImportDTO caseImport){
+    public SuccessResponse importPingAnCase(@Valid @RequestBody CaseImportBean caseImport){
         return caseService.importPingAnCase(caseImport);
     }
 
     @Transactional(rollbackFor = Exception.class)
     @RequestMapping(value = "/importMeiTuanCase",method = RequestMethod.POST)
-    public SuccessResponse importMeiTuanCase(@RequestBody CaseImportDTO caseImport){
+    public SuccessResponse importMeiTuanCase(@Valid @RequestBody CaseImportBean caseImport){
         return caseService.importMeiTuanCase(caseImport);
     }
 
     @Transactional(rollbackFor = Exception.class)
     @RequestMapping(value = "/importHangXiaoCase",method = RequestMethod.POST)
-    public SuccessResponse importHangXiaoCase(@RequestBody CaseImportDTO caseImport){
+    public SuccessResponse importHangXiaoCase(@Valid @RequestBody CaseImportBean caseImport){
         return caseService.importHangXiaoCase(caseImport);
     }
 

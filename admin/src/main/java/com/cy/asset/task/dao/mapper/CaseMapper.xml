@@ -2,34 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.cy.asset.task.dao.CaseDao" >
 
-    <insert id="saveCustomer" parameterType="java.util.List">
-        insert into cy_customer (
-            id_customer, customer_name, party_no, customer_sex, card_id,
-            phone_no, provinces, city, regional, email, date_birth,
-            customer_age, residential_address, residential_tel,
-            company_address, company_tel,
-            created_by, created_date, updated_by, updated_date
-        ) values
-        <foreach collection="list" item="item" index="index" separator=",">
-            (
-                (select replace(uuid(), '-', '') as id),
-                #{item.customerName,jdbcType=VARCHAR},#{item.partyNo,jdbcType=VARCHAR},
-                #{item.customerSex,jdbcType=VARCHAR},#{item.cardId,jdbcType=VARCHAR},
-                #{item.phoneNo,jdbcType=VARCHAR},#{item.provinces,jdbcType=VARCHAR},
-                #{item.city,jdbcType=VARCHAR},#{item.regional,jdbcType=VARCHAR},
-                #{item.email,jdbcType=VARCHAR},#{item.birthDate,jdbcType=DATE},
-                #{item.customerAge,jdbcType=VARCHAR},#{item.residentialAddress,jdbcType=VARCHAR},
-                #{item.residentialTel,jdbcType=VARCHAR},#{item.companyAddress,jdbcType=VARCHAR},
-                #{item.companyTel,jdbcType=VARCHAR},
-                'system',now(),'system',now()
-            )
-        </foreach>
-    </insert>
-
     <insert id="saveCase" parameterType="java.util.List">
-        insert into cy_case (
+        replace into cy_case (
             id_case, case_serial_number, batch_code, appoint_case_date, expect_back_case_date,
-            party_no, overdue_days, appoint_case_amount, statement_date,
+            party_no, overdue_days, appoint_case_amount, current_30_day, statement_date,
             collection_phase, collect_status, created_by, created_date, updated_by, updated_date
         ) values
         <foreach collection="list" item="item" index="index" separator=",">
@@ -38,15 +14,15 @@
                 #{item.caseSerialNumber,jdbcType=VARCHAR},#{item.batchCode,jdbcType=VARCHAR},
                 #{item.appointCaseDate,jdbcType=DATE},#{item.expectBackCaseDate,jdbcType=DATE},
                 #{item.partyNo,jdbcType=VARCHAR},#{item.overdueDays,jdbcType=VARCHAR},
-                #{item.appointCaseAmount,jdbcType=DECIMAL},#{item.statementDate,jdbcType=VARCHAR},
-                #{item.collectionPhase,jdbcType=VARCHAR},#{item.collectStatus,jdbcType=VARCHAR}
-                'system',now(),'system',now()
+                #{item.appointCaseAmount,jdbcType=DECIMAL},#{item.current30Day,jdbcType=DECIMAL},
+                #{item.statementDate,jdbcType=VARCHAR},#{item.collectionPhase,jdbcType=VARCHAR},
+                #{item.collectStatus,jdbcType=VARCHAR},'system',now(),'system',now()
             )
         </foreach>
     </insert>
 
     <insert id="saveMeiTuanCase" parameterType="java.util.List">
-        insert into cy_meituan_case (
+        replace into cy_meituan_case (
             id_meituan_case, collection_of, follow_up_people, follow_up_people_code,
             divisional_date, cancel_date, caseIdentify_1, product, case_serial_number,
             customer_name, card_id, phone_no, contact_name, contact_phone_no,
@@ -90,7 +66,7 @@
     </insert>
 
     <insert id="saveHangXiaoCase">
-        insert into cy_hangxiao_case (
+        replace into cy_hangxiao_case (
             id_hangxiao_case, channel_type, product_name_as, assigned,
             late_stage, committee_case_date, cancel_date, case_serial_number,
             customer_name, user_no, card_id, loan_balance, phone_no,
@@ -137,7 +113,7 @@
     </insert>
 
     <insert id="savePingAnCase" parameterType="com.cy.asset.task.bean.PingAnCase">
-        insert into cy_pingan_case (
+        replace into cy_pingan_case (
              id_pingan_case, collection_phase, entrust_batch, provinces, regulation_code,
              long_committee_num, acode_date, hangA_days, outsourcing_start_date,
              deadline_outsourcing_projects, customer_number, case_serial_number,

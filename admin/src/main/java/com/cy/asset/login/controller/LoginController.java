@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.util.HashMap;
 
 /**
@@ -67,7 +68,7 @@ public class LoginController {
     }
 
     @RequestMapping(value = "/changePassword",method = RequestMethod.POST)
-    public SuccessResponse changePassword(@RequestBody Login loginRequest){
+    public SuccessResponse changePassword(@Valid @RequestBody Login loginRequest){
         if(StringUtils.isEmpty(loginRequest.getAfterPassword())){
             return new SuccessResponse("修改的新密码不能为空！");
         }
