@@ -49,8 +49,11 @@ public class PingAnCaseStrategy implements CaseStrategy {
         // 案件总金额统计
         AtomicReference<BigDecimal> totalAmount = new AtomicReference<>(new BigDecimal(0.00));
         List<PingAnCase> pingAnCaseList = BeanToMapUtil.convertListMap2ListBean(caseMap, PingAnCase.class);
+        // 客户信息
         List<CustomerBean> customerList = new ArrayList<>();
+        // 个案信息
         List<CaseBean> caseList = new ArrayList<>();
+        // 平安个案信息
         List<PingAnCase> pingAnList = new ArrayList<>();
         // 客户手机信息
         List<PhoneBean> phoneList = new ArrayList<>();
@@ -505,6 +508,7 @@ public class PingAnCaseStrategy implements CaseStrategy {
         // 客户家庭地址
         if(StringUtils.isNotBlank(pingAnCase.getResidentialAddress())){
             address.setPartyNo(pingAnCase.getPartyNo());
+            address.setName(pingAnCase.getCustomerName());
             address.setAvailable(AvailableEnum.VALID.availableDescribe());
             address.setSensitive(SensitiveEnum.LOW_SENSITIVE.sensitiveDescribe());
             address.setAddress(pingAnCase.getResidentialAddress());
@@ -515,6 +519,7 @@ public class PingAnCaseStrategy implements CaseStrategy {
         // 客户单位地址
         if(StringUtils.isNotBlank(pingAnCase.getCompanyAddress())){
             address.setPartyNo(pingAnCase.getPartyNo());
+            address.setName(pingAnCase.getCustomerName());
             address.setAvailable(AvailableEnum.VALID.availableDescribe());
             address.setSensitive(SensitiveEnum.LOW_SENSITIVE.sensitiveDescribe());
             address.setAddress(pingAnCase.getCompanyAddress());
@@ -525,6 +530,7 @@ public class PingAnCaseStrategy implements CaseStrategy {
         // 帐单地址
         if(StringUtils.isNotBlank(pingAnCase.getBillingAddress())){
             address.setPartyNo(pingAnCase.getPartyNo());
+            address.setName(pingAnCase.getCustomerName());
             address.setAvailable(AvailableEnum.VALID.availableDescribe());
             address.setSensitive(SensitiveEnum.LOW_SENSITIVE.sensitiveDescribe());
             address.setAddress(pingAnCase.getBillingAddress());

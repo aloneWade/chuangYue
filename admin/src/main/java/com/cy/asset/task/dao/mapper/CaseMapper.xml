@@ -46,7 +46,7 @@
                 #{item.product,jdbcType=VARCHAR},#{item.caseSerialNumber,jdbcType=VARCHAR},
                 #{item.customerName,jdbcType=VARCHAR},#{item.cardId,jdbcType=VARCHAR},
                 #{item.phoneNo,jdbcType=VARCHAR},#{item.contactName,jdbcType=VARCHAR},
-                #{item.contactPhoneNo,jdbcType=VARCHAR},#{item.dueDate,jdbcType=VARCHAR},
+                #{item.contactPhoneNo,jdbcType=VARCHAR},#{item.statementDate,jdbcType=VARCHAR},
                 #{item.theAmountOverdueIOU,jdbcType=DECIMAL},#{item.numberOverdueIOU,jdbcType=VARCHAR},
                 #{item.timePastDueOnIOU,jdbcType=DATE},#{item.lateStage,jdbcType=VARCHAR},
                 #{item.overdueDays,jdbcType=VARCHAR},#{item.overdueAmount,jdbcType=DECIMAL},

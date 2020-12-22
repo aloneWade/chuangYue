@@ -9,6 +9,7 @@ public enum RelationEnum {
     FAMILY("family", "家庭"),
     UNIT("unit", "单位"),
     BILL("bill", "账单"),
+    UNKNOWN("unknown", "未知"),
     OTHER("other", "其他");
 
     private String relationType;

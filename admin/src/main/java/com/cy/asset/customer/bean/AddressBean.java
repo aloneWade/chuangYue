@@ -12,6 +12,8 @@ public class AddressBean {
 
     /** 客户号 **/
     private String partyNo;
+    /** 姓名 **/
+    private String name;
     /** 类型 **/
     private String addressType;
     /** 地址 **/

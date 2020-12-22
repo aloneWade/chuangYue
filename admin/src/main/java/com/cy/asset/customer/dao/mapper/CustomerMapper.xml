@@ -43,13 +43,14 @@
 
     <insert id="saveCustomerAddress" parameterType="java.util.List">
             insert ignore into cy_customer_address (
-            id_address, party_no, address_type,
+            id_address, party_no, name, address_type,
             address, available, sensitivity,
             created_by, created_date, updated_by, updated_date
         ) values
         <foreach collection="list" item="item" index="index" separator=",">(
             (select replace(uuid(), '-', '') as id),
-            #{item.partyNo,jdbcType=VARCHAR},#{item.addressType,jdbcType=VARCHAR},
+            #{item.partyNo,jdbcType=VARCHAR},#{item.name,jdbcType=VARCHAR},
+            #{item.addressType,jdbcType=VARCHAR},
             #{item.address,jdbcType=VARCHAR},#{item.available,jdbcType=VARCHAR},
             #{item.sensitive,jdbcType=VARCHAR},'system',now(),'system',now()
         )
