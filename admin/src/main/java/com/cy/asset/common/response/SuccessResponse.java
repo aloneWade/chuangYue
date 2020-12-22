@@ -8,6 +8,10 @@ import java.util.Map;
  */
 public class SuccessResponse extends ResponseValue {
 
+    public SuccessResponse(){
+        this.setMessage("true");
+    }
+
     public SuccessResponse(Object data) {
         this.setMessage("true");
         this.setData(data);

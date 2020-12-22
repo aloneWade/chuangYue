@@ -42,7 +42,7 @@
 
     <select id="getEmployeeInfo" resultMap="BaseResultMap" parameterType="java.lang.String">
         select
-        <include refid="Base_Column_List"></include>
+        <include refid="Base_Column_List"/>
         from cy_employee
         where empNo = #{empNo,jdbcType=VARCHAR}
         and position_status = 1

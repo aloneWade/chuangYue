@@ -63,7 +63,7 @@ public class PingAnCaseStrategy implements CaseStrategy {
             CustomerBean customer = new CustomerBean();
             CaseBean caseBean = new CaseBean();
             caseBean.setBatchCode(caseImport.getBatchCode());
-            caseBean.setCollectStatus(CollectStatusEnum.NEW_CASE.collectType());
+            caseBean.setCaseStatus(CollectStatusEnum.NEW_CASE.collectType());
             caseBean.setCaseSource(CaseEnum.PING_AN.caseType());
             caseBean.setCurrent30Day(pingAnCase.getIntegration30Day());
             // 将平安案件信息拷贝到客户和个案的bean属性中

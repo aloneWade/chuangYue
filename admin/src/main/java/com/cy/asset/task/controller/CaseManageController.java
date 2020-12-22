@@ -9,10 +9,13 @@ import com.cy.asset.task.service.CaseManageService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.constraints.NotNull;
 
 /**
  * @author wc
@@ -37,6 +40,11 @@ public class CaseManageController {
         PageHelper.startPage(pageNum,pageSize);
         PageInfo pageInfo = new PageInfo(caseManageService.queryCase(caseQuery));
         return new SuccessResponse(pageInfo);
+    }
+
+    @RequestMapping(value = "/queryCaseDetails/{caseSerialNumber}",method = RequestMethod.GET)
+    public SuccessResponse queryCaseDetails(@NotNull(message = "案件号不能为空") @PathVariable String caseSerialNumber){
+        return caseManageService.queryCaseDetails(caseSerialNumber);
     }
 
 }

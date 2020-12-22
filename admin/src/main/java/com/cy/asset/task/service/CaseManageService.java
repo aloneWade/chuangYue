@@ -1,5 +1,6 @@
 package com.cy.asset.task.service;
 
+import com.cy.asset.common.response.SuccessResponse;
 import com.cy.asset.task.bean.CaseQueryBean;
 import com.cy.asset.task.bean.CaseResultBean;
 
@@ -12,5 +13,7 @@ import java.util.List;
 public interface CaseManageService {
 
     List<CaseResultBean> queryCase(CaseQueryBean caseQuery);
+
+    SuccessResponse queryCaseDetails(String caseSerialNumber);
 
 }

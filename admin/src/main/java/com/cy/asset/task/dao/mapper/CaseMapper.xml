@@ -6,7 +6,8 @@
         replace into cy_case (
             id_case, case_serial_number, batch_code, appoint_case_date, expect_back_case_date,
             party_no, overdue_days, appoint_case_amount, current_30_day, statement_date,
-            collection_phase, collect_status, created_by, created_date, updated_by, updated_date
+            collection_phase, case_status, case_source,
+            created_by, created_date, updated_by, updated_date
         ) values
         <foreach collection="list" item="item" index="index" separator=",">
             (
@@ -16,7 +17,8 @@
                 #{item.partyNo,jdbcType=VARCHAR},#{item.overdueDays,jdbcType=VARCHAR},
                 #{item.appointCaseAmount,jdbcType=DECIMAL},#{item.current30Day,jdbcType=DECIMAL},
                 #{item.statementDate,jdbcType=VARCHAR},#{item.collectionPhase,jdbcType=VARCHAR},
-                #{item.collectStatus,jdbcType=VARCHAR},'system',now(),'system',now()
+                #{item.caseStatus,jdbcType=VARCHAR},#{item.caseSource,jdbcType=VARCHAR},
+                'system',now(),'system',now()
             )
         </foreach>
     </insert>

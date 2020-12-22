@@ -70,7 +70,7 @@ public class MeiTuanCaseStrategy implements CaseStrategy {
             initialCustomerInfo(meiTuanCase,phoneList,addressList);
 
             caseBean.setBatchCode(caseImport.getBatchCode());
-            caseBean.setCollectStatus(CollectStatusEnum.NEW_CASE.collectType());
+            caseBean.setCaseStatus(CollectStatusEnum.NEW_CASE.collectType());
             caseBean.setCaseSource(CaseEnum.MEI_TUAN.caseType());
             // 美团只有客户号 案件号和客户号统一
             caseBean.setPartyNo(meiTuanCase.getCaseSerialNumber());
