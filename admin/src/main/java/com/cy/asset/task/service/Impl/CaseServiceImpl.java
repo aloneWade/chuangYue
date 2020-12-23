@@ -12,6 +12,8 @@ import com.cy.asset.task.bean.PingAnCase;
 import com.cy.asset.task.bean.ResultBean;
 import com.cy.asset.task.callable.CaseCallable;
 import com.cy.asset.task.service.CaseService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -26,6 +28,8 @@ import java.util.concurrent.*;
  */
 @Service
 public class CaseServiceImpl implements CaseService {
+
+    protected Logger logger = LoggerFactory.getLogger(this.getClass());
 
     //一个线程处理1000条数据
     private static final Integer COUNT = 1000;
@@ -93,11 +97,14 @@ public class CaseServiceImpl implements CaseService {
                 result.setTotalAmount(result.getTotalAmount().add(resultCall.getTotalAmount()));
                 result.setSucceedCount(result.getSucceedCount() + resultCall.getSucceedCount());
             }
+            logger.info("案件上传成功！");
             // 执行完关闭线程池
             es.shutdown();
         } catch (InterruptedException e) {
+            logger.error("案件上传失败，异常原因:" + e);
             e.printStackTrace();
         } catch (ExecutionException e) {
+            logger.error("案件上传失败，异常原因:" + e);
             e.printStackTrace();
         } finally {
             // 执行完关闭线程池

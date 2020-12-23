@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cy.asset.customer.dao.PhoneDao" >
+
+    <sql id="Base_Column_List">
+        id_phone, party_no, name, customer_relations,
+        phone_type, phone, available, sensitivity,
+        created_by, created_date, updated_by, updated_date
+    </sql>
+
+    <insert id="saveCustomerPhone" parameterType="java.util.List">
+        insert ignore into cy_customer_phone (
+            <include refid="Base_Column_List"/>
+        ) values
+        <foreach collection="list" item="item" index="index" separator=",">(
+            (select replace(uuid(), '-', '') as id),
+            #{item.partyNo,jdbcType=VARCHAR},#{item.name,jdbcType=VARCHAR},
+            #{item.customerRelations,jdbcType=VARCHAR},#{item.phoneType,jdbcType=VARCHAR},
+            #{item.phone,jdbcType=VARCHAR},#{item.available,jdbcType=VARCHAR},
+            #{item.sensitivity,jdbcType=VARCHAR},'system',now(),'system',now()
+        )
+        </foreach>
+    </insert>
+
+    <select id="queryCustomerPhone" parameterType="java.lang.String" resultType="com.cy.asset.customer.bean.PhoneBean">
+        select
+            <include refid="Base_Column_List"/>
+        from cy_customer_phone
+            where party_no = #{partyNo,jdbcType=VARCHAR}
+        <if test="available != null and available != ''">
+            and available = #{available,jdbcType=VARCHAR}
+        </if>
+        order by updated_date desc
+    </select>
+
+    <insert id="addCustomerPhone" parameterType="com.cy.asset.customer.bean.PhoneBean">
+    insert ignore into cy_customer_phone (
+        <include refid="Base_Column_List"/>
+    ) values (
+        (select replace(uuid(), '-', '') as id),
+        #{partyNo,jdbcType=VARCHAR},#{name,jdbcType=VARCHAR},
+        #{customerRelations,jdbcType=VARCHAR},#{phoneType,jdbcType=VARCHAR},
+        #{phone,jdbcType=VARCHAR},#{available,jdbcType=VARCHAR},
+        #{sensitivity,jdbcType=VARCHAR},'system',now(),'system',now()
+    )
+    </insert>
+
+</mapper>

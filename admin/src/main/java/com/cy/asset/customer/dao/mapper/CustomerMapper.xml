@@ -2,13 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.cy.asset.customer.dao.CustomerDao" >
 
-    <insert id="saveCustomer" parameterType="java.util.List">
-        replace into cy_customer (
+    <sql id="Base_Column_List">
         id_customer, customer_name, party_no, customer_sex, card_id,
         phone_no, provinces, city, regional, email, date_birth,
         customer_age, residential_address, residential_tel,
         company_address, company_tel,
         created_by, created_date, updated_by, updated_date
+    </sql>
+
+    <insert id="saveCustomer" parameterType="java.util.List">
+        replace into cy_customer (
+            <include refid="Base_Column_List"/>
         ) values
         <foreach collection="list" item="item" index="index" separator=","> (
             (select replace(uuid(), '-', '') as id),
@@ -21,38 +25,6 @@
             #{item.residentialTel,jdbcType=VARCHAR},#{item.companyAddress,jdbcType=VARCHAR},
             #{item.companyTel,jdbcType=VARCHAR},
             'system',now(),'system',now()
-        )
-        </foreach>
-    </insert>
-
-    <insert id="saveCustomerPhone" parameterType="java.util.List">
-        insert ignore into cy_customer_phone (
-            id_phone, party_no, name, customer_relations,
-            phone_type, phone, available, sensitivity,
-            created_by, created_date, updated_by, updated_date
-        ) values
-        <foreach collection="list" item="item" index="index" separator=",">(
-            (select replace(uuid(), '-', '') as id),
-            #{item.partyNo,jdbcType=VARCHAR},#{item.name,jdbcType=VARCHAR},
-            #{item.customerRelations,jdbcType=VARCHAR},#{item.phoneType,jdbcType=VARCHAR},
-            #{item.phone,jdbcType=VARCHAR},#{item.available,jdbcType=VARCHAR},
-            #{item.sensitive,jdbcType=VARCHAR},'system',now(),'system',now()
-        )
-        </foreach>
-    </insert>
-
-    <insert id="saveCustomerAddress" parameterType="java.util.List">
-            insert ignore into cy_customer_address (
-            id_address, party_no, name, address_type,
-            address, available, sensitivity,
-            created_by, created_date, updated_by, updated_date
-        ) values
-        <foreach collection="list" item="item" index="index" separator=",">(
-            (select replace(uuid(), '-', '') as id),
-            #{item.partyNo,jdbcType=VARCHAR},#{item.name,jdbcType=VARCHAR},
-            #{item.addressType,jdbcType=VARCHAR},
-            #{item.address,jdbcType=VARCHAR},#{item.available,jdbcType=VARCHAR},
-            #{item.sensitive,jdbcType=VARCHAR},'system',now(),'system',now()
         )
         </foreach>
     </insert>

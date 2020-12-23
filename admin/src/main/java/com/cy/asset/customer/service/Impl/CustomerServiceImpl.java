@@ -3,6 +3,7 @@ package com.cy.asset.customer.service.Impl;
 import com.cy.asset.common.util.card.StrictDetect;
 import com.cy.asset.common.util.card.IdCardInfoExtractor;
 import com.cy.asset.customer.bean.CustomerBean;
+import com.cy.asset.customer.service.CustomerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -13,7 +14,7 @@ import org.springframework.stereotype.Service;
  * @describe 客户ServiceImpl
  */
 @Service
-public class CustomerServiceImpl {
+public class CustomerServiceImpl implements CustomerService {
 
     protected Logger logger = LoggerFactory.getLogger(this.getClass());
 

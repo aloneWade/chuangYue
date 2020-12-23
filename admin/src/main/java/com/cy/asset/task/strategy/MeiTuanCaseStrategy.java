@@ -8,7 +8,9 @@ import com.cy.asset.customer.bean.PhoneAttribute;
 import com.cy.asset.customer.bean.PhoneBean;
 import com.cy.asset.customer.bean.RelationEnum;
 import com.cy.asset.customer.bean.SensitiveEnum;
+import com.cy.asset.customer.dao.AddressDao;
 import com.cy.asset.customer.dao.CustomerDao;
+import com.cy.asset.customer.dao.PhoneDao;
 import com.cy.asset.customer.service.Impl.CustomerServiceImpl;
 import com.cy.asset.task.bean.CaseBean;
 import com.cy.asset.task.bean.CaseEnum;
@@ -37,6 +39,8 @@ public class MeiTuanCaseStrategy implements CaseStrategy {
 
     private CaseDao caseDao = BeanContext.getApplicationContext().getBean(CaseDao.class);
     private CustomerDao customerDao = BeanContext.getApplicationContext().getBean(CustomerDao.class);
+    private PhoneDao phoneDao = BeanContext.getApplicationContext().getBean(PhoneDao.class);
+    private AddressDao addressDao = BeanContext.getApplicationContext().getBean(AddressDao.class);
 
     private CustomerServiceImpl customerService = BeanContext.getApplicationContext().getBean(CustomerServiceImpl.class);
 
@@ -81,12 +85,12 @@ public class MeiTuanCaseStrategy implements CaseStrategy {
             meiTuanList.add(meiTuanCase);
             // 生成客户手机信息
             if( phoneList.size() >= 500 ){
-                customerDao.saveCustomerPhone(phoneList);
+                phoneDao.saveCustomerPhone(phoneList);
                 phoneList.clear();
             }
             // 生成客户地址信息
             if( addressList.size() >= 500 ){
-                customerDao.saveCustomerAddress(addressList);
+                addressDao.saveCustomerAddress(addressList);
                 addressList.clear();
             }
             // 生成客户信息
@@ -111,10 +115,10 @@ public class MeiTuanCaseStrategy implements CaseStrategy {
             customerDao.saveCustomer(customerList);
         }
         if(CollectionUtils.isNotEmpty(addressList)){
-            customerDao.saveCustomerAddress(addressList);
+            addressDao.saveCustomerAddress(addressList);
         }
         if(CollectionUtils.isNotEmpty(phoneList)){
-            customerDao.saveCustomerPhone(phoneList);
+            phoneDao.saveCustomerPhone(phoneList);
         }
         if(CollectionUtils.isNotEmpty(caseList)){
             caseDao.saveCase(caseList);
@@ -143,7 +147,7 @@ public class MeiTuanCaseStrategy implements CaseStrategy {
                     phone.setPhone(beanStrList.get(1));
                     phone.setPhoneType(beanStrList.get(2));
                     phone.setAvailable(AvailableEnum.VALID.availableDescribe());
-                    phone.setSensitive(SensitiveEnum.LOW_SENSITIVE.sensitiveDescribe());
+                    phone.setSensitivity(SensitiveEnum.LOW_SENSITIVE.sensitiveDescribe());
                     phone.setCustomerRelations(RelationEnum.UNKNOWN.relationDescribe());
                     phoneList.add(phone);
                 }
@@ -162,7 +166,7 @@ public class MeiTuanCaseStrategy implements CaseStrategy {
                     phone.setPhone(beanStrList.get(1));
                     phone.setPhoneType(beanStrList.get(2));
                     phone.setAvailable(AvailableEnum.VALID.availableDescribe());
-                    phone.setSensitive(SensitiveEnum.CENTRE_SENSITIVE.sensitiveDescribe());
+                    phone.setSensitivity(SensitiveEnum.CENTRE_SENSITIVE.sensitiveDescribe());
                     phone.setCustomerRelations(RelationEnum.UNKNOWN.relationDescribe());
                     phoneList.add(phone);
                 }
@@ -181,7 +185,7 @@ public class MeiTuanCaseStrategy implements CaseStrategy {
                     phone.setPhone(beanStrList.get(1));
                     phone.setPhoneType(beanStrList.get(2));
                     phone.setAvailable(AvailableEnum.VALID.availableDescribe());
-                    phone.setSensitive(SensitiveEnum.HIGH_SENSITIVE.sensitiveDescribe());
+                    phone.setSensitivity(SensitiveEnum.HIGH_SENSITIVE.sensitiveDescribe());
                     phone.setCustomerRelations(RelationEnum.UNKNOWN.relationDescribe());
                     phoneList.add(phone);
                 }
@@ -200,7 +204,7 @@ public class MeiTuanCaseStrategy implements CaseStrategy {
                     phone.setPhone(beanStrList.get(1));
                     phone.setPhoneType(beanStrList.get(2));
                     phone.setAvailable(AvailableEnum.VALID.availableDescribe());
-                    phone.setSensitive(SensitiveEnum.HIGH_SENSITIVE.sensitiveDescribe());
+                    phone.setSensitivity(SensitiveEnum.HIGH_SENSITIVE.sensitiveDescribe());
                     phone.setCustomerRelations(RelationEnum.UNKNOWN.relationDescribe());
                     phoneList.add(phone);
                 }
@@ -220,7 +224,7 @@ public class MeiTuanCaseStrategy implements CaseStrategy {
                     address.setAddressType(beanStrList.get(1));
                     address.setAddress(beanStrList.get(2));
                     address.setAvailable(AvailableEnum.VALID.availableDescribe());
-                    address.setSensitive(SensitiveEnum.LOW_SENSITIVE.sensitiveDescribe());
+                    address.setSensitivity(SensitiveEnum.LOW_SENSITIVE.sensitiveDescribe());
                     addressList.add(address);
                 }
             });
@@ -238,7 +242,7 @@ public class MeiTuanCaseStrategy implements CaseStrategy {
                     address.setAddressType(beanStrList.get(1));
                     address.setAddress(beanStrList.get(2));
                     address.setAvailable(AvailableEnum.VALID.availableDescribe());
-                    address.setSensitive(SensitiveEnum.CENTRE_SENSITIVE.sensitiveDescribe());
+                    address.setSensitivity(SensitiveEnum.CENTRE_SENSITIVE.sensitiveDescribe());
                     addressList.add(address);
                 }
             });
@@ -256,7 +260,7 @@ public class MeiTuanCaseStrategy implements CaseStrategy {
                     address.setAddressType(beanStrList.get(1));
                     address.setAddress(beanStrList.get(2));
                     address.setAvailable(AvailableEnum.VALID.availableDescribe());
-                    address.setSensitive(SensitiveEnum.HIGH_SENSITIVE.sensitiveDescribe());
+                    address.setSensitivity(SensitiveEnum.HIGH_SENSITIVE.sensitiveDescribe());
                     addressList.add(address);
                 }
             });
@@ -274,7 +278,7 @@ public class MeiTuanCaseStrategy implements CaseStrategy {
                     address.setAddressType(beanStrList.get(1));
                     address.setAddress(beanStrList.get(2));
                     address.setAvailable(AvailableEnum.VALID.availableDescribe());
-                    address.setSensitive(SensitiveEnum.HIGH_SENSITIVE.sensitiveDescribe());
+                    address.setSensitivity(SensitiveEnum.HIGH_SENSITIVE.sensitiveDescribe());
                     addressList.add(address);
                 }
             });

@@ -8,7 +8,9 @@ import com.cy.asset.customer.bean.PhoneBean;
 import com.cy.asset.customer.bean.PhoneTypeEnum;
 import com.cy.asset.customer.bean.RelationEnum;
 import com.cy.asset.customer.bean.SensitiveEnum;
+import com.cy.asset.customer.dao.AddressDao;
 import com.cy.asset.customer.dao.CustomerDao;
+import com.cy.asset.customer.dao.PhoneDao;
 import com.cy.asset.customer.service.Impl.CustomerServiceImpl;
 import com.cy.asset.task.bean.CaseBean;
 import com.cy.asset.task.bean.CaseEnum;
@@ -37,6 +39,8 @@ public class PingAnCaseStrategy implements CaseStrategy {
 
     private CaseDao caseDao = BeanContext.getApplicationContext().getBean(CaseDao.class);
     private CustomerDao customerDao = BeanContext.getApplicationContext().getBean(CustomerDao.class);
+    private PhoneDao phoneDao = BeanContext.getApplicationContext().getBean(PhoneDao.class);
+    private AddressDao addressDao = BeanContext.getApplicationContext().getBean(AddressDao.class);
 
     private CustomerServiceImpl customerService = BeanContext.getApplicationContext().getBean(CustomerServiceImpl.class);
 
@@ -79,12 +83,12 @@ public class PingAnCaseStrategy implements CaseStrategy {
             pingAnList.add(pingAnCase);
             // 生成客户手机信息
             if( phoneList.size() >= 500 ){
-                customerDao.saveCustomerPhone(phoneList);
+                phoneDao.saveCustomerPhone(phoneList);
                 phoneList.clear();
             }
             // 生成客户地址信息
             if( addressList.size() >= 500 ){
-                customerDao.saveCustomerAddress(addressList);
+                addressDao.saveCustomerAddress(addressList);
                 addressList.clear();
             }
             // 生成客户信息
@@ -109,10 +113,10 @@ public class PingAnCaseStrategy implements CaseStrategy {
             customerDao.saveCustomer(customerList);
         }
         if(CollectionUtils.isNotEmpty(addressList)){
-            customerDao.saveCustomerAddress(addressList);
+            addressDao.saveCustomerAddress(addressList);
         }
         if(CollectionUtils.isNotEmpty(phoneList)){
-            customerDao.saveCustomerPhone(phoneList);
+            phoneDao.saveCustomerPhone(phoneList);
         }
         if(CollectionUtils.isNotEmpty(caseList)){
             caseDao.saveCase(caseList);
@@ -134,7 +138,7 @@ public class PingAnCaseStrategy implements CaseStrategy {
         if(StringUtils.isNotBlank(pingAnCase.getPhoneNo())){
             phone.setPartyNo(pingAnCase.getPartyNo());
             phone.setAvailable(AvailableEnum.VALID.availableDescribe());
-            phone.setSensitive(SensitiveEnum.LOW_SENSITIVE.sensitiveDescribe());
+            phone.setSensitivity(SensitiveEnum.LOW_SENSITIVE.sensitiveDescribe());
             phone.setName(pingAnCase.getCustomerName());
             phone.setCustomerRelations(RelationEnum.ONESELF.relationDescribe());
             phone.setPhoneType(PhoneTypeEnum.PHONE.phoneDescribe());
@@ -146,7 +150,7 @@ public class PingAnCaseStrategy implements CaseStrategy {
         if(StringUtils.isNotBlank(pingAnCase.getResidentialTel())){
             phone.setPartyNo(pingAnCase.getPartyNo());
             phone.setAvailable(AvailableEnum.VALID.availableDescribe());
-            phone.setSensitive(SensitiveEnum.LOW_SENSITIVE.sensitiveDescribe());
+            phone.setSensitivity(SensitiveEnum.LOW_SENSITIVE.sensitiveDescribe());
             phone.setName(pingAnCase.getCustomerName());
             phone.setCustomerRelations(RelationEnum.FAMILY.relationDescribe());
             phone.setPhoneType(PhoneTypeEnum.LANDLINE.phoneDescribe());
@@ -158,7 +162,7 @@ public class PingAnCaseStrategy implements CaseStrategy {
         if(StringUtils.isNotBlank(pingAnCase.getCompanyTel())){
             phone.setPartyNo(pingAnCase.getPartyNo());
             phone.setAvailable(AvailableEnum.VALID.availableDescribe());
-            phone.setSensitive(SensitiveEnum.LOW_SENSITIVE.sensitiveDescribe());
+            phone.setSensitivity(SensitiveEnum.LOW_SENSITIVE.sensitiveDescribe());
             phone.setName(pingAnCase.getCustomerName());
             phone.setCustomerRelations(RelationEnum.UNIT.relationDescribe());
             phone.setPhoneType(PhoneTypeEnum.LANDLINE.phoneDescribe());
@@ -170,7 +174,7 @@ public class PingAnCaseStrategy implements CaseStrategy {
         if(StringUtils.isNotBlank(pingAnCase.getDirectLine())){
             phone.setPartyNo(pingAnCase.getPartyNo());
             phone.setAvailable(AvailableEnum.VALID.availableDescribe());
-            phone.setSensitive(SensitiveEnum.LOW_SENSITIVE.sensitiveDescribe());
+            phone.setSensitivity(SensitiveEnum.LOW_SENSITIVE.sensitiveDescribe());
             phone.setName(pingAnCase.getImmediateFamilyContactName());
             phone.setCustomerRelations(pingAnCase.getCardholderRelationship());
             phone.setPhoneType(PhoneTypeEnum.LANDLINE.phoneDescribe());
@@ -182,7 +186,7 @@ public class PingAnCaseStrategy implements CaseStrategy {
         if(StringUtils.isNotBlank(pingAnCase.getDirectLinePhone())){
             phone.setPartyNo(pingAnCase.getPartyNo());
             phone.setAvailable(AvailableEnum.VALID.availableDescribe());
-            phone.setSensitive(SensitiveEnum.LOW_SENSITIVE.sensitiveDescribe());
+            phone.setSensitivity(SensitiveEnum.LOW_SENSITIVE.sensitiveDescribe());
             phone.setName(pingAnCase.getImmediateFamilyContactName());
             phone.setCustomerRelations(pingAnCase.getCardholderRelationship());
             phone.setPhoneType(PhoneTypeEnum.PHONE.phoneDescribe());
@@ -194,7 +198,7 @@ public class PingAnCaseStrategy implements CaseStrategy {
         if(StringUtils.isNotBlank(pingAnCase.getNonLinealPersonTelephone())){
             phone.setPartyNo(pingAnCase.getPartyNo());
             phone.setAvailable(AvailableEnum.VALID.availableDescribe());
-            phone.setSensitive(SensitiveEnum.LOW_SENSITIVE.sensitiveDescribe());
+            phone.setSensitivity(SensitiveEnum.LOW_SENSITIVE.sensitiveDescribe());
             phone.setName(pingAnCase.getNonLinealPersonName());
             phone.setCustomerRelations(RelationEnum.OTHER.relationDescribe());
             phone.setPhoneType(PhoneTypeEnum.LANDLINE.phoneDescribe());
@@ -206,7 +210,7 @@ public class PingAnCaseStrategy implements CaseStrategy {
         if(StringUtils.isNotBlank(pingAnCase.getNonLinealPersonPhone())){
             phone.setPartyNo(pingAnCase.getPartyNo());
             phone.setAvailable(AvailableEnum.VALID.availableDescribe());
-            phone.setSensitive(SensitiveEnum.LOW_SENSITIVE.sensitiveDescribe());
+            phone.setSensitivity(SensitiveEnum.LOW_SENSITIVE.sensitiveDescribe());
             phone.setName(pingAnCase.getNonLinealPersonName());
             phone.setCustomerRelations(RelationEnum.OTHER.relationDescribe());
             phone.setPhoneType(PhoneTypeEnum.PHONE.phoneDescribe());
@@ -218,7 +222,7 @@ public class PingAnCaseStrategy implements CaseStrategy {
         if(StringUtils.isNotBlank(pingAnCase.getCardholder1Phone())){
             phone.setPartyNo(pingAnCase.getPartyNo());
             phone.setAvailable(AvailableEnum.VALID.availableDescribe());
-            phone.setSensitive(SensitiveEnum.LOW_SENSITIVE.sensitiveDescribe());
+            phone.setSensitivity(SensitiveEnum.LOW_SENSITIVE.sensitiveDescribe());
             phone.setName(pingAnCase.getCardholder1Name());
             phone.setCustomerRelations(RelationEnum.OTHER.relationDescribe());
             phone.setPhoneType(PhoneTypeEnum.PHONE.phoneDescribe());
@@ -230,7 +234,7 @@ public class PingAnCaseStrategy implements CaseStrategy {
         if(StringUtils.isNotBlank(pingAnCase.getCardholder1CompanyTel())){
             phone.setPartyNo(pingAnCase.getPartyNo());
             phone.setAvailable(AvailableEnum.VALID.availableDescribe());
-            phone.setSensitive(SensitiveEnum.LOW_SENSITIVE.sensitiveDescribe());
+            phone.setSensitivity(SensitiveEnum.LOW_SENSITIVE.sensitiveDescribe());
             phone.setName(pingAnCase.getCardholder1Name());
             phone.setCustomerRelations(RelationEnum.OTHER.relationDescribe());
             phone.setPhoneType(PhoneTypeEnum.LANDLINE.phoneDescribe());
@@ -242,7 +246,7 @@ public class PingAnCaseStrategy implements CaseStrategy {
         if(StringUtils.isNotBlank(pingAnCase.getCardholder1HomeTel())){
             phone.setPartyNo(pingAnCase.getPartyNo());
             phone.setAvailable(AvailableEnum.VALID.availableDescribe());
-            phone.setSensitive(SensitiveEnum.LOW_SENSITIVE.sensitiveDescribe());
+            phone.setSensitivity(SensitiveEnum.LOW_SENSITIVE.sensitiveDescribe());
             phone.setName(pingAnCase.getCardholder1Name());
             phone.setCustomerRelations(RelationEnum.OTHER.relationDescribe());
             phone.setPhoneType(PhoneTypeEnum.LANDLINE.phoneDescribe());
@@ -254,7 +258,7 @@ public class PingAnCaseStrategy implements CaseStrategy {
         if(StringUtils.isNotBlank(pingAnCase.getCardholder2Phone())){
             phone.setPartyNo(pingAnCase.getPartyNo());
             phone.setAvailable(AvailableEnum.VALID.availableDescribe());
-            phone.setSensitive(SensitiveEnum.LOW_SENSITIVE.sensitiveDescribe());
+            phone.setSensitivity(SensitiveEnum.LOW_SENSITIVE.sensitiveDescribe());
             phone.setName(pingAnCase.getCardholder2Name());
             phone.setCustomerRelations(RelationEnum.OTHER.relationDescribe());
             phone.setPhoneType(PhoneTypeEnum.PHONE.phoneDescribe());
@@ -266,7 +270,7 @@ public class PingAnCaseStrategy implements CaseStrategy {
         if(StringUtils.isNotBlank(pingAnCase.getCardholder2CompanyTel())){
             phone.setPartyNo(pingAnCase.getPartyNo());
             phone.setAvailable(AvailableEnum.VALID.availableDescribe());
-            phone.setSensitive(SensitiveEnum.LOW_SENSITIVE.sensitiveDescribe());
+            phone.setSensitivity(SensitiveEnum.LOW_SENSITIVE.sensitiveDescribe());
             phone.setName(pingAnCase.getCardholder2Name());
             phone.setCustomerRelations(RelationEnum.OTHER.relationDescribe());
             phone.setPhoneType(PhoneTypeEnum.LANDLINE.phoneDescribe());
@@ -278,7 +282,7 @@ public class PingAnCaseStrategy implements CaseStrategy {
         if(StringUtils.isNotBlank(pingAnCase.getCardholder2HomeTel())){
             phone.setPartyNo(pingAnCase.getPartyNo());
             phone.setAvailable(AvailableEnum.VALID.availableDescribe());
-            phone.setSensitive(SensitiveEnum.LOW_SENSITIVE.sensitiveDescribe());
+            phone.setSensitivity(SensitiveEnum.LOW_SENSITIVE.sensitiveDescribe());
             phone.setName(pingAnCase.getCardholder2Name());
             phone.setCustomerRelations(RelationEnum.OTHER.relationDescribe());
             phone.setPhoneType(PhoneTypeEnum.LANDLINE.phoneDescribe());
@@ -290,7 +294,7 @@ public class PingAnCaseStrategy implements CaseStrategy {
         if(StringUtils.isNotBlank(pingAnCase.getCardholder3Phone())){
             phone.setPartyNo(pingAnCase.getPartyNo());
             phone.setAvailable(AvailableEnum.VALID.availableDescribe());
-            phone.setSensitive(SensitiveEnum.LOW_SENSITIVE.sensitiveDescribe());
+            phone.setSensitivity(SensitiveEnum.LOW_SENSITIVE.sensitiveDescribe());
             phone.setName(pingAnCase.getCardholder3Name());
             phone.setCustomerRelations(RelationEnum.OTHER.relationDescribe());
             phone.setPhoneType(PhoneTypeEnum.PHONE.phoneDescribe());
@@ -302,7 +306,7 @@ public class PingAnCaseStrategy implements CaseStrategy {
         if(StringUtils.isNotBlank(pingAnCase.getCardholder3CompanyTel())){
             phone.setPartyNo(pingAnCase.getPartyNo());
             phone.setAvailable(AvailableEnum.VALID.availableDescribe());
-            phone.setSensitive(SensitiveEnum.LOW_SENSITIVE.sensitiveDescribe());
+            phone.setSensitivity(SensitiveEnum.LOW_SENSITIVE.sensitiveDescribe());
             phone.setName(pingAnCase.getCardholder3Name());
             phone.setCustomerRelations(RelationEnum.OTHER.relationDescribe());
             phone.setPhoneType(PhoneTypeEnum.LANDLINE.phoneDescribe());
@@ -314,7 +318,7 @@ public class PingAnCaseStrategy implements CaseStrategy {
         if(StringUtils.isNotBlank(pingAnCase.getCardholder3HomeTel())){
             phone.setPartyNo(pingAnCase.getPartyNo());
             phone.setAvailable(AvailableEnum.VALID.availableDescribe());
-            phone.setSensitive(SensitiveEnum.LOW_SENSITIVE.sensitiveDescribe());
+            phone.setSensitivity(SensitiveEnum.LOW_SENSITIVE.sensitiveDescribe());
             phone.setName(pingAnCase.getCardholder3Name());
             phone.setCustomerRelations(RelationEnum.OTHER.relationDescribe());
             phone.setPhoneType(PhoneTypeEnum.LANDLINE.phoneDescribe());
@@ -326,7 +330,7 @@ public class PingAnCaseStrategy implements CaseStrategy {
         if(StringUtils.isNotBlank(pingAnCase.getCardholder4Phone())){
             phone.setPartyNo(pingAnCase.getPartyNo());
             phone.setAvailable(AvailableEnum.VALID.availableDescribe());
-            phone.setSensitive(SensitiveEnum.LOW_SENSITIVE.sensitiveDescribe());
+            phone.setSensitivity(SensitiveEnum.LOW_SENSITIVE.sensitiveDescribe());
             phone.setName(pingAnCase.getCardholder4Name());
             phone.setCustomerRelations(RelationEnum.OTHER.relationDescribe());
             phone.setPhoneType(PhoneTypeEnum.PHONE.phoneDescribe());
@@ -338,7 +342,7 @@ public class PingAnCaseStrategy implements CaseStrategy {
         if(StringUtils.isNotBlank(pingAnCase.getCardholder4CompanyTel())){
             phone.setPartyNo(pingAnCase.getPartyNo());
             phone.setAvailable(AvailableEnum.VALID.availableDescribe());
-            phone.setSensitive(SensitiveEnum.LOW_SENSITIVE.sensitiveDescribe());
+            phone.setSensitivity(SensitiveEnum.LOW_SENSITIVE.sensitiveDescribe());
             phone.setName(pingAnCase.getCardholder4Name());
             phone.setCustomerRelations(RelationEnum.OTHER.relationDescribe());
             phone.setPhoneType(PhoneTypeEnum.LANDLINE.phoneDescribe());
@@ -350,7 +354,7 @@ public class PingAnCaseStrategy implements CaseStrategy {
         if(StringUtils.isNotBlank(pingAnCase.getCardholder4HomeTel())){
             phone.setPartyNo(pingAnCase.getPartyNo());
             phone.setAvailable(AvailableEnum.VALID.availableDescribe());
-            phone.setSensitive(SensitiveEnum.LOW_SENSITIVE.sensitiveDescribe());
+            phone.setSensitivity(SensitiveEnum.LOW_SENSITIVE.sensitiveDescribe());
             phone.setName(pingAnCase.getCardholder4Name());
             phone.setCustomerRelations(RelationEnum.OTHER.relationDescribe());
             phone.setPhoneType(PhoneTypeEnum.LANDLINE.phoneDescribe());
@@ -362,7 +366,7 @@ public class PingAnCaseStrategy implements CaseStrategy {
         if(StringUtils.isNotBlank(pingAnCase.getCardholder5Phone())){
             phone.setPartyNo(pingAnCase.getPartyNo());
             phone.setAvailable(AvailableEnum.VALID.availableDescribe());
-            phone.setSensitive(SensitiveEnum.LOW_SENSITIVE.sensitiveDescribe());
+            phone.setSensitivity(SensitiveEnum.LOW_SENSITIVE.sensitiveDescribe());
             phone.setName(pingAnCase.getCardholder5Name());
             phone.setCustomerRelations(RelationEnum.OTHER.relationDescribe());
             phone.setPhoneType(PhoneTypeEnum.PHONE.phoneDescribe());
@@ -374,7 +378,7 @@ public class PingAnCaseStrategy implements CaseStrategy {
         if(StringUtils.isNotBlank(pingAnCase.getCardholder5CompanyTel())){
             phone.setPartyNo(pingAnCase.getPartyNo());
             phone.setAvailable(AvailableEnum.VALID.availableDescribe());
-            phone.setSensitive(SensitiveEnum.LOW_SENSITIVE.sensitiveDescribe());
+            phone.setSensitivity(SensitiveEnum.LOW_SENSITIVE.sensitiveDescribe());
             phone.setName(pingAnCase.getCardholder5Name());
             phone.setCustomerRelations(RelationEnum.OTHER.relationDescribe());
             phone.setPhoneType(PhoneTypeEnum.LANDLINE.phoneDescribe());
@@ -386,7 +390,7 @@ public class PingAnCaseStrategy implements CaseStrategy {
         if(StringUtils.isNotBlank(pingAnCase.getCardholder5HomeTel())){
             phone.setPartyNo(pingAnCase.getPartyNo());
             phone.setAvailable(AvailableEnum.VALID.availableDescribe());
-            phone.setSensitive(SensitiveEnum.LOW_SENSITIVE.sensitiveDescribe());
+            phone.setSensitivity(SensitiveEnum.LOW_SENSITIVE.sensitiveDescribe());
             phone.setName(pingAnCase.getCardholder5Name());
             phone.setCustomerRelations(RelationEnum.OTHER.relationDescribe());
             phone.setPhoneType(PhoneTypeEnum.LANDLINE.phoneDescribe());
@@ -398,7 +402,7 @@ public class PingAnCaseStrategy implements CaseStrategy {
         if(StringUtils.isNotBlank(pingAnCase.getCardholder6Phone())){
             phone.setPartyNo(pingAnCase.getPartyNo());
             phone.setAvailable(AvailableEnum.VALID.availableDescribe());
-            phone.setSensitive(SensitiveEnum.LOW_SENSITIVE.sensitiveDescribe());
+            phone.setSensitivity(SensitiveEnum.LOW_SENSITIVE.sensitiveDescribe());
             phone.setName(pingAnCase.getCardholder6Name());
             phone.setCustomerRelations(RelationEnum.OTHER.relationDescribe());
             phone.setPhoneType(PhoneTypeEnum.PHONE.phoneDescribe());
@@ -410,7 +414,7 @@ public class PingAnCaseStrategy implements CaseStrategy {
         if(StringUtils.isNotBlank(pingAnCase.getCardholder6CompanyTel())){
             phone.setPartyNo(pingAnCase.getPartyNo());
             phone.setAvailable(AvailableEnum.VALID.availableDescribe());
-            phone.setSensitive(SensitiveEnum.LOW_SENSITIVE.sensitiveDescribe());
+            phone.setSensitivity(SensitiveEnum.LOW_SENSITIVE.sensitiveDescribe());
             phone.setName(pingAnCase.getCardholder6Name());
             phone.setCustomerRelations(RelationEnum.OTHER.relationDescribe());
             phone.setPhoneType(PhoneTypeEnum.LANDLINE.phoneDescribe());
@@ -422,7 +426,7 @@ public class PingAnCaseStrategy implements CaseStrategy {
         if(StringUtils.isNotBlank(pingAnCase.getCardholder6HomeTel())){
             phone.setPartyNo(pingAnCase.getPartyNo());
             phone.setAvailable(AvailableEnum.VALID.availableDescribe());
-            phone.setSensitive(SensitiveEnum.LOW_SENSITIVE.sensitiveDescribe());
+            phone.setSensitivity(SensitiveEnum.LOW_SENSITIVE.sensitiveDescribe());
             phone.setName(pingAnCase.getCardholder6Name());
             phone.setCustomerRelations(RelationEnum.OTHER.relationDescribe());
             phone.setPhoneType(PhoneTypeEnum.LANDLINE.phoneDescribe());
@@ -434,7 +438,7 @@ public class PingAnCaseStrategy implements CaseStrategy {
         if(StringUtils.isNotBlank(pingAnCase.getCardholder7Phone())){
             phone.setPartyNo(pingAnCase.getPartyNo());
             phone.setAvailable(AvailableEnum.VALID.availableDescribe());
-            phone.setSensitive(SensitiveEnum.LOW_SENSITIVE.sensitiveDescribe());
+            phone.setSensitivity(SensitiveEnum.LOW_SENSITIVE.sensitiveDescribe());
             phone.setName(pingAnCase.getCardholder7Name());
             phone.setCustomerRelations(RelationEnum.OTHER.relationDescribe());
             phone.setPhoneType(PhoneTypeEnum.PHONE.phoneDescribe());
@@ -446,7 +450,7 @@ public class PingAnCaseStrategy implements CaseStrategy {
         if(StringUtils.isNotBlank(pingAnCase.getCardholder7CompanyTel())){
             phone.setPartyNo(pingAnCase.getPartyNo());
             phone.setAvailable(AvailableEnum.VALID.availableDescribe());
-            phone.setSensitive(SensitiveEnum.LOW_SENSITIVE.sensitiveDescribe());
+            phone.setSensitivity(SensitiveEnum.LOW_SENSITIVE.sensitiveDescribe());
             phone.setName(pingAnCase.getCardholder7Name());
             phone.setCustomerRelations(RelationEnum.OTHER.relationDescribe());
             phone.setPhoneType(PhoneTypeEnum.LANDLINE.phoneDescribe());
@@ -458,7 +462,7 @@ public class PingAnCaseStrategy implements CaseStrategy {
         if(StringUtils.isNotBlank(pingAnCase.getCardholder7HomeTel())){
             phone.setPartyNo(pingAnCase.getPartyNo());
             phone.setAvailable(AvailableEnum.VALID.availableDescribe());
-            phone.setSensitive(SensitiveEnum.LOW_SENSITIVE.sensitiveDescribe());
+            phone.setSensitivity(SensitiveEnum.LOW_SENSITIVE.sensitiveDescribe());
             phone.setName(pingAnCase.getCardholder7Name());
             phone.setCustomerRelations(RelationEnum.OTHER.relationDescribe());
             phone.setPhoneType(PhoneTypeEnum.LANDLINE.phoneDescribe());
@@ -470,7 +474,7 @@ public class PingAnCaseStrategy implements CaseStrategy {
         if(StringUtils.isNotBlank(pingAnCase.getCardholder8Phone())){
             phone.setPartyNo(pingAnCase.getPartyNo());
             phone.setAvailable(AvailableEnum.VALID.availableDescribe());
-            phone.setSensitive(SensitiveEnum.LOW_SENSITIVE.sensitiveDescribe());
+            phone.setSensitivity(SensitiveEnum.LOW_SENSITIVE.sensitiveDescribe());
             phone.setName(pingAnCase.getCardholder8Name());
             phone.setCustomerRelations(RelationEnum.OTHER.relationDescribe());
             phone.setPhoneType(PhoneTypeEnum.PHONE.phoneDescribe());
@@ -482,7 +486,7 @@ public class PingAnCaseStrategy implements CaseStrategy {
         if(StringUtils.isNotBlank(pingAnCase.getCardholder8CompanyTel())){
             phone.setPartyNo(pingAnCase.getPartyNo());
             phone.setAvailable(AvailableEnum.VALID.availableDescribe());
-            phone.setSensitive(SensitiveEnum.LOW_SENSITIVE.sensitiveDescribe());
+            phone.setSensitivity(SensitiveEnum.LOW_SENSITIVE.sensitiveDescribe());
             phone.setName(pingAnCase.getCardholder8Name());
             phone.setCustomerRelations(RelationEnum.OTHER.relationDescribe());
             phone.setPhoneType(PhoneTypeEnum.LANDLINE.phoneDescribe());
@@ -494,7 +498,7 @@ public class PingAnCaseStrategy implements CaseStrategy {
         if(StringUtils.isNotBlank(pingAnCase.getCardholder8HomeTel())){
             phone.setPartyNo(pingAnCase.getPartyNo());
             phone.setAvailable(AvailableEnum.VALID.availableDescribe());
-            phone.setSensitive(SensitiveEnum.LOW_SENSITIVE.sensitiveDescribe());
+            phone.setSensitivity(SensitiveEnum.LOW_SENSITIVE.sensitiveDescribe());
             phone.setName(pingAnCase.getCardholder8Name());
             phone.setCustomerRelations(RelationEnum.OTHER.relationDescribe());
             phone.setPhoneType(PhoneTypeEnum.LANDLINE.phoneDescribe());
@@ -510,7 +514,7 @@ public class PingAnCaseStrategy implements CaseStrategy {
             address.setPartyNo(pingAnCase.getPartyNo());
             address.setName(pingAnCase.getCustomerName());
             address.setAvailable(AvailableEnum.VALID.availableDescribe());
-            address.setSensitive(SensitiveEnum.LOW_SENSITIVE.sensitiveDescribe());
+            address.setSensitivity(SensitiveEnum.LOW_SENSITIVE.sensitiveDescribe());
             address.setAddress(pingAnCase.getResidentialAddress());
             address.setAddressType(RelationEnum.FAMILY.relationDescribe());
             addressList.add(address);
@@ -521,7 +525,7 @@ public class PingAnCaseStrategy implements CaseStrategy {
             address.setPartyNo(pingAnCase.getPartyNo());
             address.setName(pingAnCase.getCustomerName());
             address.setAvailable(AvailableEnum.VALID.availableDescribe());
-            address.setSensitive(SensitiveEnum.LOW_SENSITIVE.sensitiveDescribe());
+            address.setSensitivity(SensitiveEnum.LOW_SENSITIVE.sensitiveDescribe());
             address.setAddress(pingAnCase.getCompanyAddress());
             address.setAddressType(RelationEnum.UNIT.relationDescribe());
             addressList.add(address);
@@ -532,7 +536,7 @@ public class PingAnCaseStrategy implements CaseStrategy {
             address.setPartyNo(pingAnCase.getPartyNo());
             address.setName(pingAnCase.getCustomerName());
             address.setAvailable(AvailableEnum.VALID.availableDescribe());
-            address.setSensitive(SensitiveEnum.LOW_SENSITIVE.sensitiveDescribe());
+            address.setSensitivity(SensitiveEnum.LOW_SENSITIVE.sensitiveDescribe());
             address.setAddress(pingAnCase.getBillingAddress());
             address.setAddressType(RelationEnum.BILL.relationDescribe());
             addressList.add(address);

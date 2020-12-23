@@ -20,14 +20,4 @@ public interface CustomerDao {
      * **/
     void saveCustomer(List<CustomerBean> customerList);
 
-    /**
-     * 保存客户电话信息
-     * **/
-    void saveCustomerPhone(List<PhoneBean> phoneList);
-
-    /**
-     * 保存客户地址信息
-     * **/
-    void saveCustomerAddress(List<AddressBean> addressList);
-
 }

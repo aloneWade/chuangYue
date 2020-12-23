@@ -23,6 +23,6 @@ public class PhoneBean {
     /** 有效性 **/
     private String available;
     /** 敏感度 **/
-    private String sensitive;
+    private String sensitivity;
 
 }
