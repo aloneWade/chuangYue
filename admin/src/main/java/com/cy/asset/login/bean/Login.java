@@ -11,6 +11,9 @@ public class Login implements Serializable {
 
     private static final long serialVersionUID = 1797862454883405825L;
 
+    /** 主键 **/
+    private String id;
+
     /** 账号及工号 **/
     @NotNull(message = "员工工号不能为空")
     private String username;
@@ -21,6 +24,17 @@ public class Login implements Serializable {
 
     /** 修改的新密码 **/
     private String afterPassword;
+
+    /** 创建人 **/
+    private String createdBy;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getUsername() {
         return username;
@@ -44,5 +58,13 @@ public class Login implements Serializable {
 
     public void setAfterPassword(String afterPassword) {
         this.afterPassword = afterPassword;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
     }
 }

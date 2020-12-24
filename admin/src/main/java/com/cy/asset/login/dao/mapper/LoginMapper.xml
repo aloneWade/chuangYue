@@ -28,24 +28,44 @@
 
     <select id="getLoginUser" resultMap="LoginUserMap" parameterType="java.lang.String">
         select username, password
-        from cy_login_user
+            from cy_login_user
         where username = #{username,jdbcType=VARCHAR}
         and status = 1
     </select>
 
+    <insert id="addLogin" parameterType="com.cy.asset.login.bean.Login">
+        <selectKey keyColumn="id" keyProperty="id" resultType="string" order="BEFORE">
+            select replace(uuid(), '-', '') as id from dual
+        </selectKey>
+        insert into cy_login_user(
+            id_login_user, username, password,
+            status, created_by, created_date,
+            updated_by, updated_date
+        ) values (
+            #{id,jdbcType=VARCHAR},
+            #{username,jdbcType=VARCHAR},
+            #{password,jdbcType=VARCHAR},
+            1,
+            #{createdBy,jdbcType=VARCHAR},
+            now(),
+            #{createdBy,jdbcType=VARCHAR},
+            now()
+        )
+    </insert>
+
     <update id="changePassword" parameterType="com.cy.asset.login.bean.Login">
         update cy_login_user
-        set password = #{afterPassword,jdbcType=VARCHAR}
+            set password = #{afterPassword,jdbcType=VARCHAR}
         where username = #{username,jdbcType=VARCHAR}
-        and status = 1
+            and status = 1
     </update>
 
     <select id="getEmployeeInfo" resultMap="BaseResultMap" parameterType="java.lang.String">
         select
-        <include refid="Base_Column_List"/>
+            <include refid="Base_Column_List"/>
         from cy_employee
-        where empNo = #{empNo,jdbcType=VARCHAR}
-        and position_status = 1
+            where empNo = #{empNo,jdbcType=VARCHAR}
+        and position_status = 'onJob'
     </select>
 
 </mapper>

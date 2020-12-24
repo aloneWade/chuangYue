@@ -3,11 +3,11 @@ server:
 spring:
   application:
     name: admin
-      #rabbitmq:
-      #host: 54.255.190.7
-      #port: 5672
-      #username: adminw
-    #password: admin345
+  rabbitmq:
+    host: 54.255.190.7
+    port: 5672
+    username: admin
+    password: admin123
   redis:
     host: 127.0.0.1
     port: 6379

@@ -19,6 +19,12 @@ public interface LoginDao {
     Login getLoginUser(String username);
 
     /**
+     * 新增账户密码
+     * @param loginRequest
+     */
+    void addLogin(Login loginRequest);
+
+    /**
      * 修改密码
      * @param loginRequest
      */
@@ -30,5 +36,11 @@ public interface LoginDao {
      * @return User
      */
     User getEmployeeInfo(String empNo);
+
+    /**
+     * 注销账户
+     * @param username
+     */
+    void deleteLoginUser(String username);
 
 }

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cy.asset.employee.dao.EmployeeDao" >
+
+    <sql id="Base_Column_List">
+        id_employee, eName, empNo, sex, phone_number, position_no,
+        position_name, dept_no, dept_name, dept_director, hire_date,
+        term_date, extension_number, small_phone_number, position_status,
+        created_by, created_date, updated_by, updated_date
+    </sql>
+
+    <select id="queryEmployee" parameterType="com.cy.asset.employee.bean.EmployeeBean" resultType="com.cy.asset.employee.bean.EmployeeBean">
+        select
+            <include refid="Base_Column_List"/>
+        from cy_employee
+        <where>
+            <if test="deptNo!=null and deptNo.length()>0">
+                and dept_no = #{deptNo,jdbcType=VARCHAR}
+            </if>
+            <if test="positionNo!=null and positionNo.length()>0">
+                and position_no = #{positionNo,jdbcType=VARCHAR}
+            </if>
+            <if test="empNo!=null and empNo.length()>0">
+                and empNo = #{empNo,jdbcType=VARCHAR}
+            </if>
+            <if test="eName!=null and eName.length()>0">
+                and eName = #{eName,jdbcType=VARCHAR}
+            </if>
+            <if test="positionStatus!=null and positionStatus.length()>0">
+                and position_status = #{positionStatus,jdbcType=VARCHAR}
+            </if>
+        </where>
+        order by updated_date desc
+    </select>
+
+    <insert id="addEmployee" parameterType="com.cy.asset.employee.bean.EmployeeBean">
+        <selectKey keyColumn="id" keyProperty="id" resultType="string" order="BEFORE">
+            select replace(uuid(), '-', '') as id from dual
+        </selectKey>
+        insert into cy_employee(
+            <include refid="Base_Column_List"/>
+        ) values (
+            #{id,jdbcType=VARCHAR}, #{eName,jdbcType=VARCHAR},
+            #{empNo,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, #{phoneNumber,jdbcType=VARCHAR},
+            #{positionNo,jdbcType=VARCHAR}, #{positionName,jdbcType=VARCHAR},
+            #{deptNo,jdbcType=VARCHAR}, #{deptName,jdbcType=VARCHAR},
+            #{deptDirector,jdbcType=VARCHAR}, now(), #{termDate,jdbcType=TIMESTAMP},
+            #{extensionNumber,jdbcType=TIMESTAMP}, #{smallPhoneNumber,jdbcType=TIMESTAMP}, 'onJob',
+            #{createdBy,jdbcType=VARCHAR}, now(), #{createdBy,jdbcType=VARCHAR}, now()
+        )
+    </insert>
+
+    <update id="updateEmployee" parameterType="com.cy.asset.employee.bean.EmployeeBean">
+        update cy_employee
+        <set>
+            <if test="eName!=null and eName.length()>0">eName = #{eName,jdbcType=VARCHAR},</if>
+            <if test="sex!=null and sex.length()>0">sex = #{sex,jdbcType=VARCHAR},</if>
+            <if test="positionNo!=null and positionNo.length()>0">position_no = #{positionNo,jdbcType=VARCHAR},</if>
+            <if test="positionName!=null and positionName.length()>0">position_name = #{positionName,jdbcType=VARCHAR},</if>
+            <if test="deptNo!=null and deptNo.length()>0">dept_no = #{deptNo,jdbcType=VARCHAR},</if>
+            <if test="deptName!=null and deptName.length()>0">dept_name = #{deptName,jdbcType=VARCHAR},</if>
+            <if test="deptDirector!=null and deptDirector.length()>0">dept_director = #{deptDirector,jdbcType=VARCHAR},</if>
+            <if test="positionStatus!=null and positionStatus.length()>0">position_status = #{positionStatus,jdbcType=VARCHAR},</if>
+            updated_by = #{createdBy,jdbcType=VARCHAR},
+            updated_date = now()
+        </set>
+        where empNo = #{empNo,jdbcType=VARCHAR}
+        and position_status = 'onJob'
+    </update>
+    
+</mapper>
