@@ -24,7 +24,7 @@ public class AdminApplication extends SpringBootServletInitializer {
 		SpringApplication.run(AdminApplication.class, args);
 	}
 
-	/** BCrypt加密 **/
+	//BCrypt加密
 	@Bean
 	public BCryptPasswordEncoder bcryptPasswordEncoder(){
 		return new BCryptPasswordEncoder();
