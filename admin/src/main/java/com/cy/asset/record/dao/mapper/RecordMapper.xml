@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cy.asset.record.dao.RecordDao" >
+
+    <insert id="saveRecord" parameterType="com.cy.asset.record.bean.RecordBean">
+        <selectKey keyColumn="id" keyProperty="id" resultType="string" order="BEFORE">
+            select replace(uuid(), '-', '') as id from dual
+        </selectKey>
+        insert into cy_case_record(
+            id_case_record, case_serial_number, contact_name, contact_phone,
+            collect_result, collect_status, repayment, repayment_amount, remark,
+            created_by, created_date, updated_by, updated_date
+        ) values (
+            #{id,jdbcType=VARCHAR},
+            #{caseSerialNumber,jdbcType=VARCHAR},
+            #{contactName,jdbcType=VARCHAR},
+            #{contactPhone,jdbcType=VARCHAR},
+            #{collectResult,jdbcType=VARCHAR},
+            #{collectStatus,jdbcType=VARCHAR},
+            #{repayment,jdbcType=BOOLEAN},
+            #{repaymentAmount,jdbcType=DECIMAL},
+            #{remark,jdbcType=VARCHAR},
+            #{createdBy,jdbcType=VARCHAR},
+            now(),
+            #{createdBy,jdbcType=VARCHAR},
+            now()
+        )
+    </insert>
+
+</mapper>

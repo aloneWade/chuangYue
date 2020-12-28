@@ -7,7 +7,7 @@ public interface EmployeeService {
 
     SuccessResponse queryEmployee(EmployeeBean employee);
 
-    SuccessResponse addEmployee(EmployeeBean employee);
+    SuccessResponse saveEmployee(EmployeeBean employee);
 
     SuccessResponse updateEmployee(EmployeeBean employee);
 

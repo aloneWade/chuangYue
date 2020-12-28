@@ -2,6 +2,8 @@ package com.cy.asset.task.bean;
 
 import lombok.Data;
 
+import java.math.BigDecimal;
+
 /**
  * @author wc
  * @date 2020/12/17
@@ -42,5 +44,13 @@ public class CaseQueryBean {
     private String positionNo;
     /** 部门 **/
     private String deptNo;
+    /** 委案金额开始金额 **/
+    private BigDecimal appointCaseAmountBegin;
+    /** 委案金额结束金额 **/
+    private BigDecimal appointCaseAmountEnd;
+    /** 当前30DAY开始金额 **/
+    private BigDecimal current30DayBegin;
+    /** 当前30DAY结束金额 **/
+    private BigDecimal current30DayEnd;
 
 }

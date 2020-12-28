@@ -43,6 +43,8 @@ public class EmployeeBean {
     private String extensionNumber;
     /** 小手机 **/
     private String smallPhoneNumber;
+    /** 地区 **/
+    private String area;
     /** 职位状态 onJob在职 resign离职 **/
     private String positionStatus;
     /** 创建人 **/

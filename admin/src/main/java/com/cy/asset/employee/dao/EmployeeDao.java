@@ -10,7 +10,7 @@ public interface EmployeeDao {
 
     List<EmployeeBean> queryEmployee(EmployeeBean employee);
 
-    void addEmployee(EmployeeBean employee);
+    void saveEmployee(EmployeeBean employee);
 
     void updateEmployee(EmployeeBean employee);
 

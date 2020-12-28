@@ -9,7 +9,7 @@
         created_by, created_date, updated_by, updated_date
     </sql>
 
-    <select id="queryCase" parameterType="com.cy.asset.task.bean.CaseQueryBean" resultType="com.cy.asset.task.bean.CaseResultBean">
+    <select id="queryCase" parameterType="com.cy.asset.task.bean.CaseQueryBean" resultType="java.util.List">
         select
             b.batch_code, c.appoint_case_date, c.expect_back_case_date,
             c.case_serial_number, cus.party_no, b.client, b.product_name,
@@ -18,57 +18,58 @@
         from cy_case c
         join cy_customer cus on c.party_no = cus.party_no
         join cy_case_batch b on c.batch_code = b.batch_code
+        join cy_employee e on c.current_handler = e.empNo
         <where>
-            <if test="positionNo == 'seats'">
+            <if test="positionNo != null and positionNo == 'seats'">
                 and c.current_handler = #{um,jdbcType=VARCHAR}
             </if>
-            <if test="positionNo == 'director'">
+            <if test="positionNo != null and positionNo == 'director'">
                 and c.case_source = #{deptNo,jdbcType=VARCHAR}
             </if>
-            <if test="customerName != '' or customerName != null">
+            <if test="customerName != null and customerName.length()>0">
                 and cus.customer_name like "%"#{customerName,jdbcType=VARCHAR}"%"
             </if>
-            <if test="partyNo != '' or partyNo != null">
+            <if test="partyNo != null and partyNo.length()>0">
                 and cus.party_no = #{partyNo,jdbcType=VARCHAR}
             </if>
-            <if test="provinces != '' or provinces != null">
+            <if test="provinces != null and provinces.length()>0">
                 and cus.provinces = #{provinces,jdbcType=VARCHAR}
             </if>
-            <if test="phoneNo != '' or phoneNo != null">
+            <if test="phoneNo != null and phoneNo.length()>0">
                 and cus.phone_no = #{phoneNo,jdbcType=VARCHAR}
             </if>
-            <if test="cardId != '' or cardId != null">
+            <if test="cardId != null and cardId.length()>0">
                 and cus.card_id = #{cardId,jdbcType=VARCHAR}
             </if>
-            <if test="productName != '' or productName != null">
+            <if test="productName != null and productName.length()>0">
                 and b.product_name = #{productName,jdbcType=VARCHAR}
             </if>
-            <if test="collectionPhase != '' or collectionPhase != null">
+            <if test="collectionPhase != null and collectionPhase.length()>0">
                 and c.collection_phase = #{collectionPhase,jdbcType=VARCHAR}
             </if>
-            <if test="teamLeaderUm != '' or teamLeaderUm != null">
+            <if test="teamLeaderUm != null and teamLeaderUm.length()>0">
                 and b.dept_director = #{teamLeaderUm,jdbcType=VARCHAR}
             </if>
-            <if test="um != '' or um != null">
+            <if test="um != null and um.length()>0">
                 and b.empno = #{um,jdbcType=VARCHAR}
             </if>
-            <if test="statementDate != '' or statementDate != null">
+            <if test="statementDate != null and statementDate.length()>0">
                 and c.statement_date = #{statementDate,jdbcType=VARCHAR}
             </if>
-            <if test="collectStatus != '' or collectStatus != null">
+            <if test="collectStatus.length()>0 or collectStatus != null">
                 and c.collect_status = #{collectStatus,jdbcType=VARCHAR}
             </if>
-            <if test="colorStatus != '' or colorStatus != null">
+            <if test="colorStatus != null and colorStatus.length()>0">
                 and c.color_status = #{colorStatus,jdbcType=VARCHAR}
             </if>
-            <if test="caseStatus != '' or caseStatus != null">
+            <if test="caseStatus != null and caseStatus.length()>0">
                 and c.case_status = #{collectStatus,jdbcType=VARCHAR}
             </if>
         </where>
         order by c.update_date desc
     </select>
 
-    <select id="" parameterType="java.lang.String" resultType="com.cy.asset.task.bean.CaseBean">
+    <select id="queryCaseDetailsByCaseId" parameterType="java.lang.String" resultType="com.cy.asset.task.bean.CaseBean">
         select
             <include refid="Base_Case_List"/>
         from cy_case

@@ -41,11 +41,11 @@ public class CaseResultBean {
     private String currentHandler;
     /** 最近跟进时间 **/
     private String lateFollowUpDate;
-    /** 催收结果 **/
-    private String collectResult;
     /** 催收状态 **/
     private String collectStatus;
-    /** 催记内容 **/
+    /** 最近催收结果 **/
+    private String collectResult;
+    /** 最近催记内容 **/
     private String recordContent;
     /** 已跟进次数 **/
     private Integer followUpNum;

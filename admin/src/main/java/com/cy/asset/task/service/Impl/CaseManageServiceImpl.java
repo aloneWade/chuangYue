@@ -31,6 +31,7 @@ public class CaseManageServiceImpl implements CaseManageService {
     public SuccessResponse queryCaseDetails(String caseSerialNumber){
         // 案件信息
         CaseBean caseBean = caseManageDao.queryCaseDetailsByCaseId(caseSerialNumber);
+        // 根据案件类型查询详细信息
         return new SuccessResponse();
     }
 

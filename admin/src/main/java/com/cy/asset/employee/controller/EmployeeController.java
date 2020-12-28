@@ -29,17 +29,17 @@ public class EmployeeController {
         return employeeService.queryEmployee(employee);
     }
 
-    @RequestMapping(value = "/addEmployee",method = RequestMethod.POST)
-    public SuccessResponse addEmployee(@Um String um,
+    @RequestMapping(value = "/saveEmployee",method = RequestMethod.POST)
+    public SuccessResponse saveEmployee(@Um String um,
                                        @RequestBody EmployeeBean employee){
-        employee.setCreatedBy("test");
-        return employeeService.addEmployee(employee);
+        employee.setCreatedBy(um);
+        return employeeService.saveEmployee(employee);
     }
 
     @RequestMapping(value = "/updateEmployee",method = RequestMethod.POST)
     public SuccessResponse updateEmployee(@Um String um,
                                           @RequestBody EmployeeBean employee){
-        employee.setCreatedBy("test");
+        employee.setCreatedBy(um);
         return employeeService.updateEmployee(employee);
     }
 

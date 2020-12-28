@@ -36,7 +36,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public SuccessResponse addEmployee(EmployeeBean employee) {
+    public SuccessResponse saveEmployee(EmployeeBean employee) {
         // 校验专员UM是否存在
         if(CollectionUtils.isNotEmpty(employeeDao.queryEmployee(employee))){
             logger.info("新增账户失败！" + employee.getDeptNo() + "工号已存在");
@@ -45,7 +45,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         employee.setPositionName(PositionEnum.getDescribe(employee.getPositionNo()));
         employee.setDeptName(DeptEnum.getDescribe(employee.getDeptNo()));
         // 新增专员
-        employeeDao.addEmployee(employee);
+        employeeDao.saveEmployee(employee);
         // 初始化密码
         Login login = new Login();
         login.setUsername(employee.getEmpNo());

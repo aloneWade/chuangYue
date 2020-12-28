@@ -29,11 +29,14 @@
             <if test="positionStatus!=null and positionStatus.length()>0">
                 and position_status = #{positionStatus,jdbcType=VARCHAR}
             </if>
+            <if test="area!=null and area.length()>0">
+                and area = #{area,jdbcType=VARCHAR}
+            </if>
         </where>
         order by updated_date desc
     </select>
 
-    <insert id="addEmployee" parameterType="com.cy.asset.employee.bean.EmployeeBean">
+    <insert id="saveEmployee" parameterType="com.cy.asset.employee.bean.EmployeeBean">
         <selectKey keyColumn="id" keyProperty="id" resultType="string" order="BEFORE">
             select replace(uuid(), '-', '') as id from dual
         </selectKey>
@@ -43,9 +46,9 @@
             #{id,jdbcType=VARCHAR}, #{eName,jdbcType=VARCHAR},
             #{empNo,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, #{phoneNumber,jdbcType=VARCHAR},
             #{positionNo,jdbcType=VARCHAR}, #{positionName,jdbcType=VARCHAR},
-            #{deptNo,jdbcType=VARCHAR}, #{deptName,jdbcType=VARCHAR},
-            #{deptDirector,jdbcType=VARCHAR}, now(), #{termDate,jdbcType=TIMESTAMP},
-            #{extensionNumber,jdbcType=TIMESTAMP}, #{smallPhoneNumber,jdbcType=TIMESTAMP}, 'onJob',
+            #{deptNo,jdbcType=VARCHAR}, #{deptName,jdbcType=VARCHAR}, #{deptDirector,jdbcType=VARCHAR},
+            now(), #{termDate,jdbcType=TIMESTAMP}, #{extensionNumber,jdbcType=VARCHAR},
+            #{smallPhoneNumber,jdbcType=VARCHAR}, #{area,jdbcType=VARCHAR}, 'onJob',
             #{createdBy,jdbcType=VARCHAR}, now(), #{createdBy,jdbcType=VARCHAR}, now()
         )
     </insert>
@@ -61,6 +64,7 @@
             <if test="deptName!=null and deptName.length()>0">dept_name = #{deptName,jdbcType=VARCHAR},</if>
             <if test="deptDirector!=null and deptDirector.length()>0">dept_director = #{deptDirector,jdbcType=VARCHAR},</if>
             <if test="positionStatus!=null and positionStatus.length()>0">position_status = #{positionStatus,jdbcType=VARCHAR},</if>
+            <if test="area!=null and area.length()>0">area = #{area,jdbcType=VARCHAR},</if>
             updated_by = #{createdBy,jdbcType=VARCHAR},
             updated_date = now()
         </set>

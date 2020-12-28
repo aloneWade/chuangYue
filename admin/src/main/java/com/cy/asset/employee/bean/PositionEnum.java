@@ -8,6 +8,7 @@ package com.cy.asset.employee.bean;
 public enum PositionEnum {
 
     SEATS("seats", "坐席"),
+    TEAM_LEADER("teamLeader", "团队长"),
     DIRECTOR("director", "主管"),
     ABUTMENT("abutment", "对接"),
     SYSTEM_ADMIN("systemAdmin", "系统管理员");
