@@ -4,6 +4,7 @@ import com.cy.asset.common.Constants;
 import com.cy.asset.common.response.SuccessResponse;
 import com.cy.asset.common.util.loginUser.LoginUser;
 import com.cy.asset.login.bean.User;
+import com.cy.asset.task.bean.CaseManageQueryBean;
 import com.cy.asset.task.bean.CaseQueryBean;
 import com.cy.asset.task.service.CaseManageService;
 import com.github.pagehelper.PageHelper;
@@ -45,6 +46,11 @@ public class CaseManageController {
     @RequestMapping(value = "/queryCaseDetails/{caseSerialNumber}",method = RequestMethod.GET)
     public SuccessResponse queryCaseDetails(@NotNull(message = "案件号不能为空") @PathVariable String caseSerialNumber){
         return caseManageService.queryCaseDetails(caseSerialNumber);
+    }
+
+    @RequestMapping(value = "/queryCaseManage",method = RequestMethod.GET)
+    public SuccessResponse queryCaseManage(CaseManageQueryBean caseManage){
+        return caseManageService.queryCaseManage(caseManage);
     }
 
 }

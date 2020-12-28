@@ -76,4 +76,23 @@
             where case_serial_number = #{caseSerialNumber,jdbcType=VARCHAR}
     </select>
 
+    <select id="queryCaseManage" parameterType="com.cy.asset.task.bean.CaseManageQueryBean" resultType="com.cy.asset.task.bean.CaseManageResultBean">
+        select  count(c.id_case) "load",
+                count(cr.id_case_record) "followUp",
+                e.dept_director "director",
+                e.team_leader "teamLeader",
+                e.area "area"
+        from cy_case c
+        join cy_employee e on c.current_handler = e.empno
+        left join cy_case_record cr on cr.case_serial_number = c.case_serial_number
+            where e.position_status = 'onJob'
+            <if test="caseEndDate != null">
+                and c.appoint_case_date <![CDATA[<=]]> #{caseEndDate,jdbcType=DATE}
+            </if>
+            <if test="caseStartDate != null">
+                and c.expect_back_case_date <![CDATA[>=]]> #{caseStartDate,jdbcType=DATE}
+            </if>
+        group by e.team_leader
+    </select>
+
 </mapper>
